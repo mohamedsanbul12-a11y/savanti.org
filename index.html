@@ -4,1666 +4,512 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Savanti – Clinical Pharmacy Intelligence</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --navy: #0a1628;
-      --navy2: #0f1e38;
-      --indigo: #4f46e5;
-      --indigo-light: #6366f1;
-      --teal: #0d9488;
-      --teal-light: #14b8a6;
-      --text: #e2e8f0;
-      --muted: #94a3b8;
-      --glass: rgba(255,255,255,0.05);
-      --glass-border: rgba(255,255,255,0.1);
+      --cream:       #FAF6EF;
+      --cream-dark:  #F0E9DC;
+      --green:       #2A5C45;
+      --green-mid:   #3D7A5E;
+      --green-light: #E8F2EC;
+      --gold:        #C4882A;
+      --gold-light:  #F7EDD8;
+      --charcoal:    #1E1E1E;
+      --muted:       #6B6358;
+      --border:      #DDD4C5;
+      --white:       #FFFFFF;
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 24px;
+      --shadow-sm: 0 1px 4px rgba(0,0,0,0.07);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.09);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
     }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--navy);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(10,22,40,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--glass-border);
-    }
-    .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #fff; }
-    .logo .teal { color: var(--teal-light); }
-    nav ul { list-style: none; display: flex; gap: 2rem; }
-    nav ul a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
-    nav ul a:hover { color: #fff; }
-    .nav-cta {
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; border: none; padding: .5rem 1.25rem;
-      border-radius: 6px; font-size: 0.9rem; cursor: pointer;
-      text-decoration: none; font-weight: 500;
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-      background: radial-gradient(ellipse at 50% 0%, rgba(79,70,229,0.2) 0%, transparent 70%);
-    }
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      line-height: 1.15;
-      margin-bottom: 1rem;
-    }
-    .hero h1 span { background: linear-gradient(135deg, var(--indigo-light), var(--teal-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { font-size: 1.2rem; color: var(--muted); max-width: 600px; margin: 0 auto 2rem; }
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; padding: .75rem 1.75rem; border-radius: 8px;
-      text-decoration: none; font-weight: 600; font-size: 1rem;
-    }
-    .btn-outline {
-      border: 1px solid var(--glass-border); color: var(--text);
-      padding: .75rem 1.75rem; border-radius: 8px;
-      text-decoration: none; font-weight: 500; font-size: 1rem;
-      background: var(--glass);
-    }
-
-    /* SECTIONS */
-    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
-    .section-label {
-      font-size: 0.8rem; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--teal-light); font-weight: 600; margin-bottom: .5rem;
-    }
-    h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      margin-bottom: 1rem;
-    }
-    .section-sub { color: var(--muted); max-width: 580px; margin-bottom: 3rem; font-size: 1.05rem; }
-
-    /* FEATURES GRID */
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 1.75rem;
-      backdrop-filter: blur(8px);
-      transition: border-color .2s, transform .2s;
-    }
-    .card:hover { border-color: var(--indigo-light); transform: translateY(-4px); }
-    .card-icon { font-size: 1.75rem; margin-bottom: .75rem; }
-    .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; }
-    .card p { color: var(--muted); font-size: 0.9rem; }
-
-    /* STATS */
-    .stats-row { display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; }
-    .stat { text-align: center; flex: 1; min-width: 140px; }
-    .stat-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 2.5rem; font-weight: 700;
-      background: linear-gradient(135deg, var(--indigo-light), var(--teal-light));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-    .stat p { color: var(--muted); font-size: 0.85rem; margin-top: .25rem; }
-
-    /* PRICING */
-    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .pricing-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px; padding: 2rem;
-    }
-    .pricing-card.featured { border-color: var(--indigo-light); background: rgba(79,70,229,0.1); }
-    .pricing-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: .5rem; }
-    .price { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 700; margin: .75rem 0; }
-    .price span { font-size: 0.9rem; color: var(--muted); font-family: 'Inter', sans-serif; }
-    .pricing-card ul { list-style: none; margin: 1rem 0 1.5rem; }
-    .pricing-card ul li { color: var(--muted); font-size: 0.9rem; padding: .35rem 0; border-bottom: 1px solid var(--glass-border); }
-    .pricing-card ul li::before { content: "✓ "; color: var(--teal-light); }
-    .btn-card {
-      display: block; text-align: center;
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; padding: .65rem; border-radius: 7px;
-      text-decoration: none; font-weight: 600; font-size: 0.9rem;
-    }
-
-    /* ── PLATFORM PREVIEW ── */
-    #preview {
-      padding: 5rem 0;
-      max-width: 100%;
-      background: var(--navy2);
-      border-top: 1px solid var(--glass-border);
-      border-bottom: 1px solid var(--glass-border);
-    }
-    .preview-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-    .preview-tabs {
-      display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap;
-    }
-    .ptab {
-      background: var(--glass); border: 1px solid var(--glass-border);
-      color: var(--muted); padding: .5rem 1.1rem; border-radius: 8px;
-      font-size: 0.85rem; font-weight: 500; cursor: pointer;
-      transition: all .2s; font-family: 'Inter', sans-serif;
-    }
-    .ptab.active {
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; border-color: transparent;
-    }
-    .mock-browser {
-      background: #0d1b2e; border: 1px solid var(--glass-border);
-      border-radius: 12px; overflow: hidden;
-    }
-    .mock-browser-bar {
-      background: #111d30; padding: .6rem 1rem;
-      display: flex; align-items: center; gap: .5rem;
-      border-bottom: 1px solid var(--glass-border);
-    }
-    .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .mock-dot.r { background: #ff5f57; }
-    .mock-dot.y { background: #ffbd2e; }
-    .mock-dot.g { background: #28c840; }
-    .mock-url {
-      margin-left: .5rem; background: #0a1628; border-radius: 4px;
-      padding: .2rem .75rem; font-size: 0.75rem; color: var(--muted);
-      font-family: 'JetBrains Mono', monospace; flex: 1; max-width: 320px;
-    }
-    .mock-body { padding: 1.5rem; }
-
-    /* Dashboard panel */
-    .mock-header-row {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 1rem;
-    }
-    .mock-title { font-size: 0.95rem; font-weight: 600; }
-    .mock-badge-count {
-      background: rgba(239,68,68,0.2); color: #f87171;
-      font-size: 0.75rem; font-weight: 600; padding: .2rem .65rem;
-      border-radius: 20px; border: 1px solid rgba(239,68,68,0.3);
-    }
-    .mock-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    .mock-table th {
-      text-align: left; color: var(--muted); font-weight: 500;
-      padding: .5rem .75rem; border-bottom: 1px solid var(--glass-border);
-      font-size: 0.75rem; text-transform: uppercase; letter-spacing: .06em;
-    }
-    .mock-table td { padding: .65rem .75rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
-    .mock-table tr:last-child td { border-bottom: none; }
-    .pdc-wrap { display: flex; align-items: center; gap: .6rem; }
-    .pdc-bar-bg { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; min-width: 60px; }
-    .pdc-bar { height: 6px; border-radius: 3px; }
-    .pdc-bar.green { background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
-    .pdc-bar.yellow { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-    .pdc-bar.red { background: linear-gradient(90deg, #ef4444, #f87171); }
-    .pdc-val { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; min-width: 34px; }
-    .status-badge {
-      display: inline-block; padding: .15rem .55rem; border-radius: 20px;
-      font-size: 0.72rem; font-weight: 600;
-    }
-    .status-badge.on-track { background: rgba(20,184,166,0.15); color: var(--teal-light); border: 1px solid rgba(20,184,166,0.3); }
-    .status-badge.at-risk { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
-    .status-badge.critical { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
-    .days-left { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
-    .days-left.urgent { color: #f87171; }
-    .days-left.soon { color: #fbbf24; }
-    .days-left.ok { color: var(--teal-light); }
-
-    /* Alerts panel */
-    .alert-list { display: flex; flex-direction: column; gap: .75rem; }
-    .alert-card {
-      display: flex; align-items: center; gap: 1rem;
-      background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: 10px; padding: .9rem 1.1rem;
-    }
-    .alert-card.overdue { border-left: 3px solid #ef4444; }
-    .alert-card.urgent { border-left: 3px solid #f59e0b; }
-    .alert-card.upcoming { border-left: 3px solid var(--teal); }
-    .alert-icon { font-size: 1.25rem; flex-shrink: 0; }
-    .alert-info { flex: 1; }
-    .alert-name { font-size: 0.9rem; font-weight: 600; }
-    .alert-drug { font-size: 0.8rem; color: var(--muted); }
-    .alert-tag {
-      font-size: 0.72rem; font-weight: 700; padding: .2rem .6rem;
-      border-radius: 20px; text-transform: uppercase; letter-spacing: .05em;
-      flex-shrink: 0;
-    }
-    .alert-tag.overdue { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
-    .alert-tag.urgent { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
-    .alert-tag.upcoming { background: rgba(20,184,166,0.1); color: var(--teal-light); border: 1px solid rgba(20,184,166,0.25); }
-    .alert-action {
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; border: none; padding: .35rem .85rem; border-radius: 6px;
-      font-size: 0.78rem; font-weight: 600; cursor: default; flex-shrink: 0;
-    }
-
-    /* Formulary panel */
-    .formulary-search {
-      display: flex; align-items: center; gap: .75rem;
-      background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-      border-radius: 8px; padding: .6rem 1rem; margin-bottom: 1.25rem;
-    }
-    .formulary-search span { color: var(--muted); font-size: 0.85rem; flex: 1; }
-    .formulary-search .search-pill {
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; font-size: 0.78rem; font-weight: 600;
-      padding: .2rem .7rem; border-radius: 20px;
-    }
-    .formulary-results { display: flex; flex-direction: column; gap: .65rem; }
-    .formulary-row {
-      display: flex; align-items: center; gap: 1rem;
-      background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: 10px; padding: .85rem 1.1rem;
-    }
-    .formulary-row.best { border-color: rgba(20,184,166,0.4); }
-    .formulary-drug { flex: 1; }
-    .formulary-drug .fname { font-size: 0.9rem; font-weight: 600; }
-    .formulary-drug .fsub { font-size: 0.78rem; color: var(--muted); }
-    .formulary-tier {
-      font-size: 0.75rem; font-weight: 600; padding: .15rem .55rem;
-      border-radius: 20px; background: rgba(79,70,229,0.15);
-      color: var(--indigo-light); border: 1px solid rgba(79,70,229,0.25);
-      flex-shrink: 0;
-    }
-    .formulary-price { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700; min-width: 70px; text-align: right; }
-    .formulary-price.best-price { color: var(--teal-light); }
-    .best-label {
-      font-size: 0.7rem; font-weight: 700; padding: .15rem .55rem;
-      border-radius: 20px; background: rgba(20,184,166,0.15);
-      color: var(--teal-light); border: 1px solid rgba(20,184,166,0.3);
-    }
-
-    /* PAP panel */
-    .pap-patient {
-      background: rgba(79,70,229,0.08); border: 1px solid rgba(79,70,229,0.2);
-      border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;
-    }
-    .pap-patient-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--indigo-light); font-weight: 600; margin-bottom: .3rem; }
-    .pap-patient-name { font-size: 0.95rem; font-weight: 600; }
-    .pap-patient-drug { font-size: 0.82rem; color: var(--muted); }
-    .pap-patient-cost { font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; font-weight: 700; color: #f87171; margin-top: .25rem; }
-    .pap-list { display: flex; flex-direction: column; gap: .65rem; }
-    .pap-card {
-      display: flex; align-items: center; gap: 1rem;
-      background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: 10px; padding: .85rem 1.1rem;
-    }
-    .pap-logo { width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, var(--indigo), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-    .pap-info { flex: 1; }
-    .pap-name { font-size: 0.88rem; font-weight: 600; }
-    .pap-sub { font-size: 0.78rem; color: var(--muted); }
-    .pap-savings { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700; color: var(--teal-light); min-width: 55px; text-align: right; flex-shrink: 0; }
-    .pap-apply {
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; border: none; padding: .35rem .85rem;
-      border-radius: 6px; font-size: 0.78rem; font-weight: 600;
-      cursor: default; flex-shrink: 0;
-    }
-
-    /* panel visibility */
-    .preview-panel { display: none; }
-    .preview-panel.active { display: block; }
-
-    /* ── ABOUT SECTION ── */
-    #about { padding: 5rem 2rem; }
-    .about-wrapper {
-      max-width: 860px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: start;
-    }
-    .about-badge {
-      background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: 16px; padding: 2rem; text-align: center;
-    }
-    .about-avatar {
-      width: 110px; height: 110px; border-radius: 50%;
-      object-fit: cover; object-position: top;
-      border: 3px solid var(--indigo-light);
-      display: block; margin: 0 auto 1rem;
-    }
-    .about-badge h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .25rem; }
-    .about-badge p { color: var(--muted); font-size: 0.85rem; line-height: 1.5; }
-    .about-badge .badge-tag {
-      display: inline-block; margin-top: .75rem;
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; font-size: 0.75rem; font-weight: 600;
-      padding: .3rem .8rem; border-radius: 20px; letter-spacing: .05em;
-    }
-    .about-content h2 { margin-bottom: 1.25rem; }
-    .about-content p { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; }
-    .about-content p:last-of-type { margin-bottom: 1.75rem; }
-    .about-cta {
-      display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
-      padding: 1.5rem; border-radius: 12px;
-      background: var(--glass); border: 1px solid var(--glass-border);
-    }
-    .about-cta-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--teal-light); font-weight: 600; width: 100%; margin-bottom: -.25rem; }
-    .about-cta a { color: var(--text); text-decoration: none; font-size: 0.95rem; font-weight: 500; display: flex; align-items: center; gap: .4rem; }
-    .about-cta a:hover { color: var(--teal-light); }
-    .about-cta .divider { color: var(--glass-border); }
-    @media (max-width: 700px) {
-      .about-wrapper { grid-template-columns: 1fr; }
-    }
-
-    /* ── FAQ SECTION ── */
-    #faq { padding: 5rem 2rem; }
-    .faq-wrapper { max-width: 800px; margin: 0 auto; }
-    .faq-item {
-      border: 1px solid var(--glass-border);
-      border-radius: 10px;
-      margin-bottom: .85rem;
-      overflow: hidden;
-      background: var(--glass);
-      backdrop-filter: blur(8px);
-      transition: border-color .2s;
-    }
-    .faq-item:hover { border-color: rgba(99,102,241,0.4); }
-    .faq-question {
-      width: 100%; background: none; border: none; cursor: pointer;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.25rem 1.5rem;
-      color: var(--text); font-size: 1rem; font-weight: 500;
-      font-family: 'Inter', sans-serif; text-align: left;
-      gap: 1rem;
-    }
-    .faq-question .chevron {
-      flex-shrink: 0; width: 22px; height: 22px;
-      border-radius: 50%;
-      background: rgba(79,70,229,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; color: var(--indigo-light);
-      transition: transform .3s, background .2s;
-    }
-    .faq-item.open .chevron { transform: rotate(180deg); background: rgba(79,70,229,0.4); }
-    .faq-answer {
-      max-height: 0; overflow: hidden;
-      transition: max-height .35s ease, padding .3s ease;
-      padding: 0 1.5rem;
-      color: var(--muted); font-size: 0.95rem; line-height: 1.7;
-    }
-    .faq-item.open .faq-answer { max-height: 400px; padding: 0 1.5rem 1.25rem; }
-
-    /* ── DEMO FORM ── */
-    #demo { padding: 5rem 2rem; }
-    .demo-wrapper {
-      max-width: 680px; margin: 0 auto;
-    }
-    .demo-form {
-      background: var(--glass); border: 1px solid var(--glass-border);
-      border-radius: 16px; padding: 2.5rem;
-      margin-top: 2rem;
-    }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
-    .form-group label { font-size: 0.82rem; font-weight: 500; color: var(--muted); }
-    .form-group input,
-    .form-group select {
-      background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border);
-      border-radius: 8px; padding: .65rem .9rem;
-      color: var(--text); font-size: 0.9rem; font-family: 'Inter', sans-serif;
-      transition: border-color .2s;
-      appearance: none; -webkit-appearance: none;
-    }
-    .form-group input:focus,
-    .form-group select:focus { outline: none; border-color: var(--indigo-light); }
-    .form-group input::placeholder { color: #4a5568; }
-    .form-group select option { background: #0f1e38; color: var(--text); }
-    .form-submit {
-      width: 100%; padding: .85rem;
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; border: none; border-radius: 8px;
-      font-size: 1rem; font-weight: 600; cursor: pointer;
-      font-family: 'Inter', sans-serif; margin-top: .5rem;
-      transition: opacity .2s;
-    }
-    .form-submit:hover { opacity: .9; }
-    .form-note { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: .85rem; }
-    .form-success {
-      display: none; text-align: center; padding: 2.5rem 1rem;
-    }
-    .form-success .success-icon { font-size: 2.5rem; margin-bottom: .75rem; }
-    .form-success h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: .5rem; }
-    .form-success p { color: var(--muted); font-size: 0.95rem; }
-    @media (max-width: 560px) {
-      .form-row { grid-template-columns: 1fr; }
-      .demo-form { padding: 1.5rem; }
-    }
-
-    /* ── WAITLIST ── */
-    #waitlist {
-      padding: 5rem 2rem;
-      background: linear-gradient(135deg, rgba(79,70,229,0.12), rgba(13,148,136,0.12));
-      border-top: 1px solid var(--glass-border);
-      border-bottom: 1px solid var(--glass-border);
-      text-align: center;
-    }
-    #waitlist h2 { margin-bottom: .75rem; }
-    #waitlist .section-sub { margin: 0 auto 2rem; }
-    .waitlist-form {
-      display: flex; gap: .75rem; justify-content: center;
-      flex-wrap: wrap; max-width: 560px; margin: 0 auto;
-    }
-    .waitlist-form input {
-      flex: 1; min-width: 200px;
-      background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border);
-      border-radius: 8px; padding: .7rem 1rem;
-      color: var(--text); font-size: 0.9rem; font-family: 'Inter', sans-serif;
-    }
-    .waitlist-form input:focus { outline: none; border-color: var(--indigo-light); }
-    .waitlist-form input::placeholder { color: #4a5568; }
-    .waitlist-btn {
-      background: linear-gradient(135deg, var(--indigo), var(--teal));
-      color: #fff; border: none; padding: .7rem 1.5rem;
-      border-radius: 8px; font-size: 0.95rem; font-weight: 600;
-      cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap;
-    }
-    .waitlist-count {
-      margin-top: 1rem; font-size: 0.82rem; color: var(--muted);
-    }
-    .waitlist-success { display: none; }
-    .waitlist-success-icon { font-size: 2rem; margin-bottom: .5rem; }
-
-    /* FOOTER */
-    footer {
-      text-align: center; padding: 3rem 2rem;
-      border-top: 1px solid var(--glass-border);
-      color: var(--muted); font-size: 0.85rem;
-    }
-    footer strong { color: var(--text); }
-
-    @media (max-width: 600px) {
-      nav ul { display: none; }
-    }
-
+    body { background: var(--cream); color: var(--charcoal); font-family: var(--font-sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+    .label { display: inline-block; font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); background: var(--gold-light); border: 1px solid #E6C98A; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 15px; font-weight: 600; cursor: pointer; border: none; transition: all 0.18s ease; text-decoration: none; }
+    .btn-primary { background: var(--green); color: var(--white); }
+    .btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-outline { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
+    .btn-outline:hover { background: var(--green-light); }
+    .btn-gold { background: var(--gold); color: var(--white); }
+    .btn-gold:hover { background: #b07920; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(250, 246, 239, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-logo { font-family: var(--font-serif); font-size: 22px; font-weight: 600; color: var(--green); letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .hero { padding: 110px 0 90px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -120px; right: -180px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(196,136,42,0.10) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: -80px; left: -120px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(42,92,69,0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero-inner { position: relative; max-width: 780px; }
+    .hero h1 { font-family: var(--font-serif); font-size: clamp(44px, 6vw, 72px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; color: var(--charcoal); margin-bottom: 24px; }
+    .hero h1 em { font-style: italic; color: var(--green); }
+    .hero-sub { font-size: 18px; color: var(--muted); max-width: 560px; margin-bottom: 44px; line-height: 1.7; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .hero-note { font-size: 13px; color: var(--muted); margin-top: 20px; }
+    .hero-note span { color: var(--gold); font-weight: 600; }
+    .stats-strip { background: var(--green); padding: 48px 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .stat-item { text-align: center; padding: 8px 24px; border-right: 1px solid rgba(255,255,255,0.15); }
+    .stat-item:last-child { border-right: none; }
+    .stat-number { font-family: var(--font-serif); font-size: 48px; font-weight: 600; color: var(--white); line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,0.65); letter-spacing: 0.04em; }
+    .problem { padding: 100px 0; }
+    .problem-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .problem-text h2 { font-family: var(--font-serif); font-size: clamp(32px, 4vw, 46px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .problem-text h2 em { font-style: italic; color: var(--green); }
+    .problem-text p { font-size: 16px; color: var(--muted); margin-bottom: 16px; line-height: 1.75; }
+    .problem-cards { display: flex; flex-direction: column; gap: 16px; }
+    .problem-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px 28px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+    .problem-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold); border-radius: 4px 0 0 4px; }
+    .problem-card-title { font-size: 15px; font-weight: 600; color: var(--charcoal); margin-bottom: 4px; }
+    .problem-card-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .building { background: var(--cream-dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 100px 0; }
+    .building-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+    .building-header h2 { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .building-header h2 em { font-style: italic; color: var(--gold); }
+    .building-header p { font-size: 16px; color: var(--muted); }
+    .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .module-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 28px; box-shadow: var(--shadow-sm); transition: box-shadow 0.18s, transform 0.18s; }
+    .module-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .module-icon { width: 44px; height: 44px; background: var(--green-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+    .module-title { font-size: 15px; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; }
+    .module-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .module-tag { display: inline-block; margin-top: 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); background: var(--green-light); padding: 3px 10px; border-radius: 100px; }
+    .pricing { padding: 100px 0; }
+    .pricing-header { text-align: center; max-width: 560px; margin: 0 auto 64px; }
+    .pricing-header h2 { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .pricing-header p { font-size: 16px; color: var(--muted); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
+    .pricing-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 36px 32px; position: relative; transition: box-shadow 0.18s; }
+    .pricing-card:hover { box-shadow: var(--shadow-lg); }
+    .pricing-card.featured { border-color: var(--green); background: var(--green); color: var(--white); }
+    .pricing-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 18px; border-radius: 100px; white-space: nowrap; }
+    .plan-name { font-family: var(--font-serif); font-size: 22px; font-weight: 400; margin-bottom: 6px; }
+    .plan-tagline { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .pricing-card.featured .plan-tagline { color: rgba(255,255,255,0.65); }
+    .plan-price { margin-bottom: 28px; }
+    .plan-price .amount { font-family: var(--font-serif); font-size: 42px; font-weight: 600; line-height: 1; color: var(--charcoal); }
+    .pricing-card.featured .plan-price .amount { color: var(--white); }
+    .plan-price .period { font-size: 14px; color: var(--muted); margin-left: 4px; }
+    .pricing-card.featured .plan-price .period { color: rgba(255,255,255,0.65); }
+    .plan-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+    .pricing-card.featured .plan-divider { background: rgba(255,255,255,0.2); }
+    .plan-features { list-style: none; margin-bottom: 32px; }
+    .plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+    .pricing-card.featured .plan-features li { color: rgba(255,255,255,0.80); }
+    .plan-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .pricing-card.featured .plan-features li::before { color: var(--gold); }
+    .btn-plan { width: 100%; justify-content: center; padding: 14px 24px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--green); background: transparent; color: var(--green); transition: all 0.18s; text-align: center; display: block; }
+    .btn-plan:hover { background: var(--green-light); }
+    .pricing-card.featured .btn-plan { background: var(--white); color: var(--green); border-color: var(--white); }
+    .pricing-card.featured .btn-plan:hover { background: var(--cream); }
+    .pricing-note { text-align: center; font-size: 13px; color: var(--muted); margin-top: 32px; }
+    .about { background: var(--cream-dark); border-top: 1px solid var(--border); padding: 100px 0; }
+    .about-inner { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; }
+    .founder-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; box-shadow: var(--shadow-md); text-align: center; }
+    .founder-avatar { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, var(--green-light), var(--gold-light)); display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 32px; font-weight: 400; color: var(--green); margin: 0 auto 16px; border: 2px solid var(--border); }
+    .founder-name { font-family: var(--font-serif); font-size: 20px; font-weight: 400; color: var(--charcoal); margin-bottom: 4px; }
+    .founder-title { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .founder-contact { display: flex; flex-direction: column; gap: 8px; }
+    .founder-contact a { font-size: 14px; color: var(--green); font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; transition: color 0.15s; }
+    .founder-contact a:hover { color: var(--gold); }
+    .about-right h2 { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .about-right h2 em { font-style: italic; color: var(--green); }
+    .about-right p { font-size: 16px; color: var(--muted); margin-bottom: 16px; line-height: 1.75; }
+    .about-right p strong { color: var(--charcoal); font-weight: 600; }
+    .waitlist { padding: 100px 0; text-align: center; }
+    .waitlist-inner { max-width: 600px; margin: 0 auto; }
+    .waitlist h2 { font-family: var(--font-serif); font-size: clamp(34px, 5vw, 56px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 18px; }
+    .waitlist h2 em { font-style: italic; color: var(--gold); }
+    .waitlist p { font-size: 17px; color: var(--muted); margin-bottom: 44px; line-height: 1.7; }
+    .waitlist-form { display: flex; gap: 12px; max-width: 460px; margin: 0 auto 16px; }
+    .waitlist-form input { flex: 1; padding: 15px 20px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 15px; background: var(--white); color: var(--charcoal); outline: none; transition: border-color 0.15s; }
+    .waitlist-form input:focus { border-color: var(--green); }
+    .waitlist-form input::placeholder { color: var(--muted); opacity: 0.7; }
+    .waitlist-note { font-size: 12px; color: var(--muted); }
+    .waitlist-success { display: none; background: var(--green-light); border: 1px solid var(--green); border-radius: var(--radius-md); padding: 20px 28px; font-size: 15px; color: var(--green); font-weight: 500; max-width: 460px; margin: 0 auto; }
+    #demo { background: var(--cream-dark); border-top: 1px solid var(--border); padding: 100px 0; }
+    .demo-inner { max-width: 680px; margin: 0 auto; }
+    .demo-header { text-align: center; margin-bottom: 48px; }
+    .demo-header h2 { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .demo-header h2 em { font-style: italic; color: var(--green); }
+    .demo-header p { font-size: 16px; color: var(--muted); }
+    .demo-form { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 44px; box-shadow: var(--shadow-md); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 13px; font-weight: 600; color: var(--charcoal); letter-spacing: 0.02em; }
+    .form-group input, .form-group select { padding: 13px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 15px; color: var(--charcoal); background: var(--cream); outline: none; transition: border-color 0.15s; -webkit-appearance: none; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--green); background: var(--white); }
+    .form-submit { width: 100%; margin-top: 24px; justify-content: center; font-size: 16px; padding: 16px 28px; }
+    .form-legal { text-align: center; margin-top: 14px; font-size: 12px; color: var(--muted); }
+    .demo-success { display: none; text-align: center; padding: 40px; }
+    .demo-success-icon { font-size: 48px; margin-bottom: 16px; }
+    .demo-success h3 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; color: var(--green); margin-bottom: 10px; }
+    .demo-success p { font-size: 15px; color: var(--muted); }
+    footer { background: var(--charcoal); color: rgba(255,255,255,0.55); padding: 40px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: var(--font-serif); font-size: 18px; font-weight: 400; color: var(--white); }
+    .footer-logo span { color: var(--gold); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 12px; width: 100%; text-align: center; margin-top: 8px; color: rgba(255,255,255,0.3); }
     @media (max-width: 768px) {
-      /* NAV */
-      nav { padding: .85rem 1.25rem; }
-      .nav-cta { display: none; }
-
-      /* HERO */
-      .hero { padding: 5rem 1.25rem 3rem; }
-      .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
-      .hero p { font-size: 1rem; }
-      .hero-btns { flex-direction: column; align-items: center; }
-      .btn-primary, .btn-outline { width: 100%; max-width: 320px; text-align: center; }
-
-      /* SECTIONS */
-      section { padding: 3.5rem 1.25rem; }
-
-      /* FEATURES */
-      .features-grid { grid-template-columns: 1fr; }
-
-      /* PLATFORM PREVIEW */
-      #preview { padding: 3.5rem 1rem; }
-      .preview-inner { padding: 0 .25rem; }
-      .preview-tabs { flex-wrap: wrap; gap: .4rem; }
-      .ptab { font-size: .78rem; padding: .5rem .75rem; flex: 1; min-width: 130px; text-align: center; }
-      .mock-browser-bar { padding: .5rem .75rem; }
-      .mock-url { font-size: .7rem; }
-      .mock-body { padding: .85rem; }
-      .mock-header-row { flex-wrap: wrap; gap: .4rem; }
-      .mock-title { font-size: .85rem; }
-
-      /* DASHBOARD TABLE — hide PDC bar, keep value */
-      .mock-filter-row { flex-direction: column; }
-      .mock-sort-select { width: 100%; }
-      .pdc-bar-bg { display: none; }
-      .mock-table { font-size: .75rem; }
-      .mock-table th, .mock-table td { padding: .4rem .45rem; }
-      /* hide Days Left column on very small screens */
-      .mock-table th:nth-child(4), .mock-table td:nth-child(4) { display: none; }
-
-      /* PATIENT DETAIL CARD */
-      .patient-detail-card.visible { grid-template-columns: 1fr; }
-      .patient-action-bar { flex-wrap: wrap; }
-      .pab-label { width: 100%; }
-
-      /* ALERTS */
-      .alert-card { flex-wrap: wrap; gap: .5rem; }
-      .alert-tag { display: none; }
-      .alert-action { margin-left: auto; }
-
-      /* FORMULARY */
-      .formulary-row { flex-wrap: wrap; gap: .4rem; }
-      .formulary-price-stack { width: 100%; flex-direction: row; align-items: center; justify-content: space-between; }
-      .formulary-price { min-width: auto; }
-      .partd-banner { padding: .75rem; }
-
-      /* PAP */
-      .pap-card { flex-wrap: wrap; gap: .5rem; }
-      .pap-savings { margin-left: auto; }
-
-      /* DRUG SELECTOR */
-      .drug-selector { gap: .35rem; }
-      .drug-pill { font-size: .72rem; padding: .25rem .65rem; }
-
-      /* STATS */
-      .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-      .stat { min-width: unset; }
-      .stat-num { font-size: 2rem; }
-
-      /* PRICING */
-      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-
-      /* ABOUT */
-      .about-wrapper { grid-template-columns: 1fr; gap: 2rem; }
-
-      /* FAQ */
-      .faq-question { font-size: .9rem; padding: 1rem 1.1rem; }
-
-      /* DEMO FORM */
-      .demo-form { padding: 1.5rem 1.1rem; }
+      .nav-links { display: none; }
+      .problem-inner { grid-template-columns: 1fr; gap: 48px; }
+      .modules-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 24px; }
+      .stat-item:last-child { border-bottom: none; }
+      .waitlist-form { flex-direction: column; }
       .form-row { grid-template-columns: 1fr; }
-
-      /* WAITLIST */
-      .waitlist-form { flex-direction: column; align-items: center; }
-      .waitlist-form input { width: 100%; min-width: unset; }
-      .waitlist-btn { width: 100%; }
-
-      /* FOOTER */
-      footer { padding: 2rem 1.25rem; font-size: .8rem; }
+      .footer-inner { justify-content: center; text-align: center; }
+      .footer-links { justify-content: center; }
+      .demo-form { padding: 28px 24px; }
     }
-
-    /* INTERACTIVE PLATFORM */
-    .mock-filter-row { display: flex; gap: .6rem; margin-bottom: .85rem; }
-    .mock-filter-input {
-      flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-      border-radius: 6px; padding: .4rem .75rem; color: var(--text); font-size: .82rem;
-      outline: none; font-family: 'Inter', sans-serif;
-    }
-    .mock-filter-input::placeholder { color: var(--muted); }
-    .mock-sort-select {
-      background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-      border-radius: 6px; padding: .4rem .6rem; color: var(--muted); font-size: .78rem;
-      cursor: pointer; font-family: 'Inter', sans-serif;
-    }
-    .mock-table tbody tr { cursor: pointer; transition: background .15s; }
-    .mock-table tbody tr:hover { background: rgba(79,70,229,0.1); }
-    .mock-table tbody tr.row-selected { background: rgba(79,70,229,0.2); }
-    .patient-action-bar {
-      display: none; align-items: center; gap: .6rem; flex-wrap: wrap;
-      background: rgba(15,30,56,0.9); border: 1px solid rgba(79,70,229,0.3);
-      border-top: none; border-radius: 0 0 8px 8px; padding: .55rem 1rem; margin-top: -1px;
-    }
-    .patient-action-bar.visible { display: flex; }
-    .pab-label { font-size: .8rem; color: var(--muted); flex: 1; }
-    .pab-btn {
-      background: rgba(255,255,255,0.07); border: 1px solid var(--glass-border);
-      border-radius: 5px; padding: .22rem .65rem; color: var(--text); font-size: .78rem;
-      cursor: pointer; transition: background .15s; font-family: 'Inter', sans-serif;
-    }
-    .pab-btn:hover { background: rgba(79,70,229,0.35); border-color: var(--indigo-light); }
-    .drug-selector { display: flex; gap: .5rem; margin-bottom: .85rem; flex-wrap: wrap; }
-    .drug-pill {
-      background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
-      border-radius: 20px; padding: .28rem .85rem; font-size: .78rem; color: var(--muted);
-      cursor: pointer; transition: all .2s; font-family: 'Inter', sans-serif;
-    }
-    .drug-pill.active { background: rgba(79,70,229,0.2); border-color: var(--indigo-light); color: var(--text); }
-    .drug-view { display: none; }
-    .drug-view.active { display: block; }
-    .alert-action { cursor: pointer; }
-    .toast {
-      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px);
-      background: #0d1e35; border: 1px solid rgba(20,184,166,0.45);
-      color: var(--teal-light); padding: .55rem 1.25rem; border-radius: 8px;
-      font-size: .88rem; font-weight: 500; z-index: 9999; pointer-events: none;
-      transition: transform .3s ease, opacity .3s ease; opacity: 0; white-space: nowrap;
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-
-    /* PANEL DESCRIPTION */
-    .panel-desc {
-      font-size: .8rem; color: var(--muted); margin-bottom: .9rem;
-      padding: .5rem .75rem; background: rgba(255,255,255,0.03);
-      border-radius: 6px; border-left: 3px solid rgba(79,70,229,0.4);
-      line-height: 1.5;
-    }
-
-    /* TERM TOOLTIPS */
-    .term-tip {
-      display: inline-block; font-size: .65rem; background: rgba(79,70,229,0.18);
-      border: 1px solid rgba(79,70,229,0.3); border-radius: 3px; padding: 0 .3rem;
-      color: var(--indigo-light); cursor: help; margin-left: .3rem; vertical-align: middle;
-      position: relative;
-    }
-    .term-tip::after {
-      content: attr(data-tip);
-      position: absolute; bottom: 140%; left: 50%; transform: translateX(-50%);
-      background: #0c1a2e; border: 1px solid var(--glass-border);
-      color: var(--text); font-size: .73rem; line-height: 1.4;
-      max-width: 220px; white-space: normal; text-align: left;
-      padding: .4rem .65rem; border-radius: 6px; pointer-events: none;
-      opacity: 0; transition: opacity .2s; z-index: 200; font-weight: 400;
-    }
-    .term-tip:hover::after { opacity: 1; }
-
-    /* PATIENT DETAIL CARD */
-    .patient-detail-card {
-      display: none;
-      background: rgba(10,22,40,0.97); border: 1px solid rgba(79,70,229,0.3);
-      border-top: none; border-radius: 0 0 10px 10px;
-      padding: 1rem 1.25rem; margin-top: -1px;
-      animation: pdFade .2s ease;
-    }
-    .patient-detail-card.visible { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem 1.5rem; }
-    .pd-full { grid-column: 1 / -1; }
-    .pd-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; color: var(--indigo-light); font-weight: 600; margin-bottom: .18rem; }
-    .pd-value { font-size: .88rem; color: var(--text); font-weight: 500; }
-    .pd-sub { font-size: .78rem; color: var(--muted); margin-top: .1rem; }
-    .pd-flag {
-      grid-column: 1 / -1; background: rgba(255,255,255,0.04);
-      border-left: 3px solid var(--indigo-light); border-radius: 0 6px 6px 0;
-      padding: .5rem .85rem; font-size: .82rem; color: var(--muted);
-    }
-    .pd-rec {
-      grid-column: 1 / -1; font-size: .82rem; color: var(--teal-light);
-      font-weight: 600; display: flex; align-items: center; gap: .4rem;
-    }
-    @keyframes pdFade { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* PART D DEDUCTIBLE */
-    .partd-banner {
-      background: rgba(79,70,229,0.07); border: 1px solid rgba(79,70,229,0.22);
-      border-radius: 10px; padding: .85rem 1.1rem; margin-bottom: 1rem;
-    }
-    .partd-header { display: flex; align-items: center; gap: .75rem; margin-bottom: .65rem; flex-wrap: wrap; }
-    .partd-badge {
-      font-size: .68rem; font-weight: 700; padding: .15rem .55rem; border-radius: 20px;
-      background: rgba(79,70,229,0.2); color: var(--indigo-light);
-      border: 1px solid rgba(79,70,229,0.35); letter-spacing: .04em;
-    }
-    .partd-phase-label { font-size: .84rem; font-weight: 600; }
-    .partd-phase-label.deductible { color: #fbbf24; }
-    .partd-phase-label.initial { color: var(--teal-light); }
-    .partd-phase-label.catastrophic { color: #a78bfa; }
-    .partd-bar-row { display: flex; justify-content: space-between; font-size: .74rem; color: var(--muted); margin-bottom: .3rem; }
-    .partd-track { height: 7px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin-bottom: .4rem; }
-    .partd-fill { height: 100%; border-radius: 4px; }
-    .partd-fill.deductible { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-    .partd-fill.initial { background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
-    .partd-note { font-size: .78rem; color: var(--muted); line-height: 1.5; }
-    .partd-note strong { color: var(--text); }
-    .formulary-price-stack { display: flex; flex-direction: column; align-items: flex-end; min-width: 90px; }
-    .price-now { font-family: 'JetBrains Mono', monospace; font-size: .95rem; font-weight: 700; color: #f87171; }
-    .price-after { font-family: 'JetBrains Mono', monospace; font-size: .78rem; color: var(--teal-light); }
-    .price-phase-label { font-size: .65rem; color: var(--muted); }
-    /* Part D in patient detail card */
-    .pd-partd-block {
-      grid-column: 1 / -1;
-      background: rgba(79,70,229,0.06); border: 1px solid rgba(79,70,229,0.2);
-      border-radius: 8px; padding: .75rem 1rem; display: none;
-    }
-    .pd-partd-block.visible { display: block; }
-    .pd-partd-title { font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; color: var(--indigo-light); font-weight: 600; margin-bottom: .5rem; }
-    .pd-partd-row { display: flex; justify-content: space-between; font-size: .78rem; color: var(--muted); margin-bottom: .25rem; }
-    .pd-partd-row strong { color: var(--text); }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="javascript:void(0)" onclick="location.reload()" style="text-decoration:none;"><div class="logo"><span class="teal">Sav</span>anti</div></a>
-  <ul>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#preview">Platform</a></li>
-    <li><a href="#outcomes">Outcomes</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#faq">FAQ</a></li>
-  </ul>
-  <a href="#demo" class="nav-cta">Request Demo</a>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div>
-    <p class="section-label">Clinical Pharmacy Intelligence</p>
-    <h1>The adherence platform<br /><span>your patients deserve</span></h1>
-    <p>Real-time PDC scoring, formulary intelligence, and HEDIS tracking — built by pharmacists, for pharmacists.</p>
-    <div class="hero-btns">
-      <a href="#demo" class="btn-primary">Request a Demo</a>
-      <a href="#preview" class="btn-outline">See It In Action</a>
-    </div>
-  </div>
-</div>
-
-<!-- FEATURES -->
-<section id="features">
-  <p class="section-label">Platform Capabilities</p>
-  <h2>Everything you need at the point of care</h2>
-  <p class="section-sub">Six core modules working together to close adherence gaps before they cost patients their health — or their plan its stars.</p>
-  <div class="features-grid">
-    <div class="card"><div class="card-icon">📊</div><h3>Real-Time PDC & MPR Scoring</h3><p>Live proportion of days covered and medication possession ratio updated at every refill event.</p></div>
-    <div class="card"><div class="card-icon">⏰</div><h3>Refill Countdown Alerts</h3><p>Proactive notifications before patients run out, giving your team time to intervene.</p></div>
-    <div class="card"><div class="card-icon">💊</div><h3>Live Formulary & Pricing</h3><p>Side-by-side cost comparisons across formularies so you can find the most affordable option instantly.</p></div>
-    <div class="card"><div class="card-icon">🤝</div><h3>PAP Detection</h3><p>Automatic Patient Assistance Program matching for high-cost medications — zero manual searching.</p></div>
-    <div class="card"><div class="card-icon">💳</div><h3>Pharmacist Discount Hub</h3><p>Curated discount cards and coupon programs surfaced at the right moment in the workflow.</p></div>
-    <div class="card"><div class="card-icon">❤️</div><h3>GDMT Clinical Decision Support</h3><p>Guideline-directed medical therapy alerts ensure patients with HF, diabetes, and CAD stay on optimal regimens.</p></div>
-  </div>
-</section>
-
-<!-- PLATFORM PREVIEW -->
-<div id="preview">
-  <div class="preview-inner">
-    <p class="section-label">Live Platform Preview</p>
-    <h2>See exactly what your team gets</h2>
-    <p class="section-sub" style="margin-bottom:2rem;">Click through the tabs below to explore each module — this is real interface data, not a slideshow.</p>
-
-    <div class="preview-tabs">
-      <button class="ptab active" onclick="switchTab('dashboard', this)">📊 PDC Dashboard</button>
-      <button class="ptab" onclick="switchTab('alerts', this)">⏰ Refill Alerts</button>
-      <button class="ptab" onclick="switchTab('formulary', this)">💊 Formulary & Pricing</button>
-      <button class="ptab" onclick="switchTab('pap', this)">🤝 PAP Detection</button>
-    </div>
-
-    <div class="mock-browser">
-      <div class="mock-browser-bar">
-        <div class="mock-dot r"></div>
-        <div class="mock-dot y"></div>
-        <div class="mock-dot g"></div>
-        <div class="mock-url">app.savanti.org/dashboard</div>
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">Savanti<span>.</span></a>
+        <ul class="nav-links">
+          <li><a href="#problem">The Problem</a></li>
+          <li><a href="#platform">Platform</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="#demo" class="btn btn-primary">Request Demo</a>
+        </div>
       </div>
-      <div class="mock-body">
+    </div>
+  </nav>
 
-        <!-- Dashboard Panel -->
-        <div class="preview-panel active" id="panel-dashboard">
-          <div class="mock-header-row">
-            <span class="mock-title">Patient Adherence Dashboard</span>
-            <span class="mock-badge-count">5 patients need attention</span>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="label">Early Access — Now Open</div>
+        <h1>Pharmacy care,<br /><em>finally built</em> for<br />the pharmacist.</h1>
+        <p class="hero-sub">Savanti gives clinical pharmacists real-time adherence intelligence, formulary insight, and patient assistance — all in one place, at the point of care.</p>
+        <div class="hero-actions">
+          <a href="#waitlist" class="btn btn-gold">Join the Waitlist</a>
+          <a href="#demo" class="btn btn-outline">Request a Demo</a>
+        </div>
+        <p class="hero-note"><span>30-day pilot</span> · No credit card required · Built by a pharmacist</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">+12%</div>
+          <div class="stat-label">PDC improvement in pilot cohort</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">$3,400</div>
+          <div class="stat-label">Annual savings per adherent patient</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">60s</div>
+          <div class="stat-label">Average adherence review time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="problem-inner">
+        <div class="problem-text">
+          <div class="label">The Problem</div>
+          <h2>The system is failing patients at the <em>exact moment</em> they need it most.</h2>
+          <p>Pharmacists care deeply. But the tools haven't kept up. Patients fall off therapy quietly, costs spiral, and HEDIS scores slip — while your team is stuck in a workflow built for a different era.</p>
+          <p>This isn't a knowledge problem. It's a tools problem.</p>
+        </div>
+        <div class="problem-cards">
+          <div class="problem-card">
+            <div class="problem-card-title">Patients go undetected until it's too late</div>
+            <div class="problem-card-body">By the time a gap shows in your spreadsheet, the patient has already missed days — and those days count against your PDC score permanently.</div>
           </div>
-          <p class="panel-desc">Every patient on your roster, ranked by adherence risk. <strong>Click any row</strong> to see their clinical profile and recommended next action. Patients flagged in red are at immediate risk of missing their HEDIS measure target.</p>
-          <div class="mock-filter-row">
-            <input class="mock-filter-input" placeholder="🔍  Search patient or medication..." oninput="filterTable(this.value)" />
-            <select class="mock-sort-select" onchange="sortTable(this.value)">
-              <option value="">Sort by</option>
-              <option value="pdc-asc">PDC ↑</option>
-              <option value="pdc-desc">PDC ↓</option>
-            </select>
+          <div class="problem-card">
+            <div class="problem-card-title">Medication cost drives non-adherence</div>
+            <div class="problem-card-body">Millions of patients walk away from prescriptions they can't afford. Finding assistance programs takes hours — time you don't have at the counter.</div>
           </div>
-          <table class="mock-table" id="dashboard-table">
-            <thead>
-              <tr>
-                <th>Patient</th>
-                <th>Medication</th>
-                <th>PDC Score <span class="term-tip" data-tip="Proportion of Days Covered — the % of days a patient had medication available. HEDIS requires ≥80% to count as adherent.">?</span></th>
-                <th>Days Left <span class="term-tip" data-tip="Days until the patient's next refill is due, based on fill history and days supply.">?</span></th>
-                <th>Status <span class="term-tip" data-tip="On Track = PDC ≥80% · At Risk = PDC 70–79% · Critical = PDC below 70% or overdue.">?</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr onclick="selectPatient(this,'J. Williams','Metformin 1000mg')">
-                <td>J. Williams</td><td>Metformin 1000mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar green" style="width:91%"></div></div><span class="pdc-val">91%</span></div></td>
-                <td><span class="days-left ok">8 days</span></td>
-                <td><span class="status-badge on-track">On Track</span></td>
-              </tr>
-              <tr onclick="selectPatient(this,'R. Thompson','Lisinopril 10mg')">
-                <td>R. Thompson</td><td>Lisinopril 10mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar yellow" style="width:74%"></div></div><span class="pdc-val">74%</span></div></td>
-                <td><span class="days-left soon">3 days</span></td>
-                <td><span class="status-badge at-risk">At Risk</span></td>
-              </tr>
-              <tr onclick="selectPatient(this,'M. Davis','Atorvastatin 40mg')">
-                <td>M. Davis</td><td>Atorvastatin 40mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar red" style="width:67%"></div></div><span class="pdc-val">67%</span></div></td>
-                <td><span class="days-left urgent">Overdue</span></td>
-                <td><span class="status-badge critical">Critical</span></td>
-              </tr>
-              <tr onclick="selectPatient(this,'S. Patel','Carvedilol 25mg')">
-                <td>S. Patel</td><td>Carvedilol 25mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar green" style="width:88%"></div></div><span class="pdc-val">88%</span></div></td>
-                <td><span class="days-left ok">12 days</span></td>
-                <td><span class="status-badge on-track">On Track</span></td>
-              </tr>
-              <tr onclick="selectPatient(this,'T. Johnson','Jardiance 10mg')">
-                <td>T. Johnson</td><td>Jardiance 10mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar red" style="width:61%"></div></div><span class="pdc-val">61%</span></div></td>
-                <td><span class="days-left urgent">1 day</span></td>
-                <td><span class="status-badge critical">Critical</span></td>
-              </tr>
-              <tr onclick="selectPatient(this,'K. Brown','Amlodipine 10mg')">
-                <td>K. Brown</td><td>Amlodipine 10mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar red" style="width:55%"></div></div><span class="pdc-val">55%</span></div></td>
-                <td><span class="days-left urgent">Overdue</span></td>
-                <td><span class="status-badge critical">Critical</span></td>
-              </tr>
-              <tr onclick="selectPatient(this,'A. Rodriguez','Rosuvastatin 20mg')">
-                <td>A. Rodriguez</td><td>Rosuvastatin 20mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar green" style="width:85%"></div></div><span class="pdc-val">85%</span></div></td>
-                <td><span class="days-left ok">18 days</span></td>
-                <td><span class="status-badge on-track">On Track</span></td>
-              </tr>
-              <tr onclick="selectPatient(this,'L. Garcia','Spironolactone 25mg')">
-                <td>L. Garcia</td><td>Spironolactone 25mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar yellow" style="width:77%"></div></div><span class="pdc-val">77%</span></div></td>
-                <td><span class="days-left soon">4 days</span></td>
-                <td><span class="status-badge at-risk">At Risk</span></td>
-              </tr>
-              <tr onclick="selectPatient(this,'P. Williams','Entresto 49/51mg')">
-                <td>P. Williams</td><td>Entresto 49/51mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar green" style="width:93%"></div></div><span class="pdc-val">93%</span></div></td>
-                <td><span class="days-left ok">22 days</span></td>
-                <td><span class="status-badge on-track">On Track</span></td>
-              </tr>
-              <tr onclick="selectPatient(this,'D. Chen','Ozempic 0.5mg')">
-                <td>D. Chen</td><td>Ozempic 0.5mg</td>
-                <td><div class="pdc-wrap"><div class="pdc-bar-bg"><div class="pdc-bar red" style="width:69%"></div></div><span class="pdc-val">69%</span></div></td>
-                <td><span class="days-left urgent">2 days</span></td>
-                <td><span class="status-badge critical">Critical</span></td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="patient-action-bar" id="patient-action-bar">
-            <span class="pab-label" id="pab-label">Select a patient to take action</span>
-            <button class="pab-btn" onclick="logPatientAction('Call')">📞 Log Call</button>
-            <button class="pab-btn" onclick="logPatientAction('Contacted')">✓ Mark Contacted</button>
-            <button class="pab-btn" onclick="logPatientAction('Note')">📝 Add Note</button>
+          <div class="problem-card">
+            <div class="problem-card-title">Star ratings are at stake</div>
+            <div class="problem-card-body">HEDIS adherence measures for diabetes, hypertension, and cholesterol directly impact your plan's Star Rating — and your bottom line.</div>
           </div>
-          <div class="patient-detail-card" id="patient-detail-card">
-            <div>
-              <div class="pd-label">Condition</div>
-              <div class="pd-value" id="pd-condition">—</div>
-            </div>
-            <div>
-              <div class="pd-label">Insurance Plan</div>
-              <div class="pd-value" id="pd-plan">—</div>
-            </div>
-            <div>
-              <div class="pd-label">Last Fill Date</div>
-              <div class="pd-value" id="pd-lastfill">—</div>
-            </div>
-            <div>
-              <div class="pd-label">Next Refill Due</div>
-              <div class="pd-value" id="pd-nextdue">—</div>
-            </div>
-            <div class="pd-full">
-              <div class="pd-label">PDC & HEDIS Status <span class="term-tip" data-tip="HEDIS = Healthcare Effectiveness Data and Information Set. These measures determine Star Ratings for health plans.">?</span></div>
-              <div class="pd-sub" id="pd-pdcnote">—</div>
-            </div>
-            <div class="pd-flag pd-full" id="pd-flag">—</div>
-            <div class="pd-rec pd-full">→ <span id="pd-action">—</span></div>
-            <div class="pd-partd-block" id="pd-partd-block">
-              <div class="pd-partd-title">Medicare Part D Coverage Phase <span class="term-tip" data-tip="Part D has 3 phases: Deductible (patient pays full price until $590 met), Initial Coverage (copays apply), Catastrophic (after $2,000 OOP cap — patient pays nothing).">?</span></div>
-              <div class="pd-partd-row"><span>Current Phase</span><strong id="pd-partd-phase">—</strong></div>
-              <div class="partd-bar-row"><span id="pd-partd-bar-label">Deductible Progress</span><span id="pd-partd-bar-vals">—</span></div>
-              <div class="partd-track"><div class="partd-fill" id="pd-partd-fill" style="width:0%"></div></div>
-              <div class="pd-partd-row"><span>Out-of-Pocket This Year</span><strong id="pd-partd-oop">—</strong></div>
-              <div class="partd-note" id="pd-partd-note">—</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="building" id="platform">
+    <div class="container">
+      <div class="building-header">
+        <div class="label">The Platform</div>
+        <h2>Built to close the gap,<br /><em>before</em> it opens.</h2>
+        <p>Six clinical tools working together — so you can see risk, act fast, and keep patients on therapy.</p>
+      </div>
+      <div class="modules-grid">
+        <div class="module-card">
+          <div class="module-icon">📊</div>
+          <div class="module-title">Real-Time PDC & MPR Scoring</div>
+          <div class="module-body">Live proportion of days covered and medication possession ratio — updated at every refill event, not next quarter.</div>
+          <span class="module-tag">Adherence</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon">⏰</div>
+          <div class="module-title">Proactive Refill Alerts</div>
+          <div class="module-body">Catch at-risk patients before they run out — with enough lead time to actually do something about it.</div>
+          <span class="module-tag">Outreach</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon">💊</div>
+          <div class="module-title">Live Formulary & Pricing</div>
+          <div class="module-body">Side-by-side cost comparisons across insurance tiers, generics, coupons, and copay programs — instantly.</div>
+          <span class="module-tag">Cost</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon">🤝</div>
+          <div class="module-title">Automatic PAP Detection</div>
+          <div class="module-body">Savanti scans 3,000+ patient assistance programs and matches each patient automatically. No manual searching.</div>
+          <span class="module-tag">Access</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon">💳</div>
+          <div class="module-title">Pharmacist Discount Hub</div>
+          <div class="module-body">Curated discount cards and coupon programs surfaced at the right moment — not buried in a browser tab.</div>
+          <span class="module-tag">Savings</span>
+        </div>
+        <div class="module-card">
+          <div class="module-icon">❤️</div>
+          <div class="module-title">GDMT Clinical Decision Support</div>
+          <div class="module-body">Guideline-directed alerts for HF, diabetes, and CAD — so patients with the highest stakes stay on optimal therapy.</div>
+          <span class="module-tag">Clinical</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="pricing-header">
+        <div class="label">Pricing</div>
+        <h2>Simple, transparent plans.</h2>
+        <p>No hidden fees. Cancel anytime. All plans include onboarding and PharmD-reviewed clinical content.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="plan-name">Pharmacy Starter</div>
+          <div class="plan-tagline">For independent pharmacies ready to start.</div>
+          <div class="plan-price"><span class="amount">$299</span><span class="period">/location/mo</span></div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>Up to 50 patients</li>
+            <li>PDC & MPR scoring</li>
+            <li>Refill alerts</li>
+            <li>Pharmacist discount hub</li>
+            <li>Email support</li>
+          </ul>
+          <a href="#demo" class="btn-plan">Get Started</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Most Popular</div>
+          <div class="plan-name">Health System Clinical</div>
+          <div class="plan-tagline">For teams that need the full clinical picture.</div>
+          <div class="plan-price"><span class="amount">$499</span><span class="period">/location/mo</span></div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>Unlimited patient roster</li>
+            <li>Full formulary intelligence</li>
+            <li>Automatic PAP detection</li>
+            <li>GDMT clinical decision support</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="#demo" class="btn-plan">Get Started</a>
+        </div>
+        <div class="pricing-card">
+          <div class="plan-name">PBM Enterprise</div>
+          <div class="plan-tagline">Custom pricing for plans and health systems.</div>
+          <div class="plan-price"><span class="amount" style="font-size:32px;">Custom</span></div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>White-label options</li>
+            <li>API & EHR integrations</li>
+            <li>Custom HEDIS reporting</li>
+            <li>Dedicated customer success</li>
+            <li>SLA guarantees</li>
+          </ul>
+          <a href="#demo" class="btn-plan">Contact Sales</a>
+        </div>
+      </div>
+      <p class="pricing-note">All plans include a <strong>30-day free pilot</strong> — no credit card required.</p>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-left">
+          <div class="founder-card">
+            <div class="founder-avatar">M</div>
+            <div class="founder-name">Mohamed Mohamed</div>
+            <div class="founder-title">PharmD Candidate 2027 · Atlanta, Georgia · Founder</div>
+            <div class="founder-contact">
+              <a href="tel:4045285461">📞 (404) 528-5461</a>
+              <a href="mailto:savantihealth@outlook.com">✉️ savantihealth@outlook.com</a>
             </div>
           </div>
         </div>
-
-        <!-- Alerts Panel -->
-        <div class="preview-panel" id="panel-alerts">
-          <div class="mock-header-row">
-            <span class="mock-title">Refill Alert Feed</span>
-            <span class="mock-badge-count">7 active alerts</span>
-          </div>
-          <p class="panel-desc">Patients flagged for outreach based on their refill timeline and HEDIS measure status. Overdue patients have already missed days that count against their PDC score. <strong>Click an action button</strong> to log the outreach — Savanti timestamps and tracks every contact attempt.</p>
-          <div class="alert-list">
-            <div class="alert-card overdue">
-              <div class="alert-icon">🚨</div>
-              <div class="alert-info">
-                <div class="alert-name">M. Davis</div>
-                <div class="alert-drug">Atorvastatin 40mg · 2 days overdue · HLD patient</div>
-              </div>
-              <span class="alert-tag overdue">Overdue</span>
-              <button class="alert-action" onclick="logAlert(this,'M. Davis')">Call Now</button>
-            </div>
-            <div class="alert-card overdue">
-              <div class="alert-icon">🚨</div>
-              <div class="alert-info">
-                <div class="alert-name">K. Brown</div>
-                <div class="alert-drug">Amlodipine 10mg · 4 days overdue · HTN patient</div>
-              </div>
-              <span class="alert-tag overdue">Overdue</span>
-              <button class="alert-action" onclick="logAlert(this,'K. Brown')">Call Now</button>
-            </div>
-            <div class="alert-card urgent">
-              <div class="alert-icon">⚠️</div>
-              <div class="alert-info">
-                <div class="alert-name">T. Johnson</div>
-                <div class="alert-drug">Jardiance 10mg · Due tomorrow · DM patient, Star measure</div>
-              </div>
-              <span class="alert-tag urgent">Due Tomorrow</span>
-              <button class="alert-action" onclick="logAlert(this,'T. Johnson')">Reach Out</button>
-            </div>
-            <div class="alert-card urgent">
-              <div class="alert-icon">⚠️</div>
-              <div class="alert-info">
-                <div class="alert-name">D. Chen</div>
-                <div class="alert-drug">Ozempic 0.5mg · Due in 2 days · DM patient, Star measure</div>
-              </div>
-              <span class="alert-tag urgent">Due Soon</span>
-              <button class="alert-action" onclick="logAlert(this,'D. Chen')">Reach Out</button>
-            </div>
-            <div class="alert-card urgent">
-              <div class="alert-icon">⏰</div>
-              <div class="alert-info">
-                <div class="alert-name">R. Thompson</div>
-                <div class="alert-drug">Lisinopril 10mg · Due today · HTN, HEDIS measure</div>
-              </div>
-              <span class="alert-tag urgent">Due Today</span>
-              <button class="alert-action" onclick="logAlert(this,'R. Thompson')">Reach Out</button>
-            </div>
-            <div class="alert-card urgent">
-              <div class="alert-icon">⏰</div>
-              <div class="alert-info">
-                <div class="alert-name">L. Garcia</div>
-                <div class="alert-drug">Spironolactone 25mg · Due in 4 days · HF patient, HEDIS</div>
-              </div>
-              <span class="alert-tag urgent">Due Soon</span>
-              <button class="alert-action" onclick="logAlert(this,'L. Garcia')">Reach Out</button>
-            </div>
-            <div class="alert-card upcoming">
-              <div class="alert-icon">📅</div>
-              <div class="alert-info">
-                <div class="alert-name">J. Williams</div>
-                <div class="alert-drug">Metformin 1000mg · Due in 8 days · On track</div>
-              </div>
-              <span class="alert-tag upcoming">Upcoming</span>
-              <button class="alert-action" onclick="logAlert(this,'J. Williams')">Schedule</button>
-            </div>
-          </div>
+        <div class="about-right">
+          <div class="label">Our Story</div>
+          <h2>Built from<br /><em>the counter up.</em></h2>
+          <p>Before pharmacy school, Mohamed spent five years working the retail pharmacy counter — watching patients walk away from prescriptions they couldn't afford, fielding calls from people lost in a system that wasn't built to help them.</p>
+          <p>Those years made one thing clear: <strong>the gap between clinical intent and patient outcome isn't a knowledge problem — it's a tools problem.</strong></p>
+          <p>Now in pharmacy school, Mohamed is combining that ground-level experience with clinical training in pharmacokinetics, therapeutics, and HEDIS metrics — alongside a growing foundation in healthcare business strategy. Savanti is where all of it converges.</p>
+          <a href="#demo" class="btn btn-outline" style="margin-top: 16px;">Free Consultation →</a>
         </div>
-
-        <!-- Formulary Panel -->
-        <div class="preview-panel" id="panel-formulary">
-          <div class="mock-header-row">
-            <span class="mock-title">Formulary & Pricing Intelligence</span>
-          </div>
-          <p class="panel-desc">Real-time pricing across insurance tiers, generic alternatives, coupons, and manufacturer assistance programs — all in one place. <strong>Select a drug</strong> to see the full cost breakdown for that patient. The "Best Option" row is auto-identified by Savanti based on the patient's insurance and income.</p>
-          <div class="drug-selector">
-            <button class="drug-pill active" onclick="switchFormDrug('jardiance',this)">Jardiance 10mg</button>
-            <button class="drug-pill" onclick="switchFormDrug('atorvastatin',this)">Atorvastatin 40mg</button>
-            <button class="drug-pill" onclick="switchFormDrug('lisinopril',this)">Lisinopril 10mg</button>
-            <button class="drug-pill" onclick="switchFormDrug('ozempic',this)">Ozempic 0.5mg</button>
-          </div>
-
-          <!-- Jardiance -->
-          <div class="drug-view active" id="form-jardiance">
-            <div class="formulary-search">
-              <span>🔍 &nbsp;Jardiance 10mg · T. Johnson · United Healthcare Plan</span>
-              <span class="search-pill">Live Pricing</span>
-            </div>
-            <div class="formulary-results">
-              <div class="formulary-row">
-                <div class="formulary-drug"><div class="fname">Jardiance 10mg (Brand)</div><div class="fsub">Boehringer Ingelheim · Formulary Tier 3</div></div>
-                <span class="formulary-tier">Tier 3</span>
-                <div class="formulary-price">$342<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-              <div class="formulary-row">
-                <div class="formulary-drug"><div class="fname">Empagliflozin (Generic)</div><div class="fsub">Multiple manufacturers · Formulary Tier 2</div></div>
-                <span class="formulary-tier">Tier 2</span>
-                <div class="formulary-price">$89<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-              <div class="formulary-row">
-                <div class="formulary-drug"><div class="fname"><a href="https://www.goodrx.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">GoodRx Coupon</a></div><div class="fsub">No insurance required · Accepted at most chains</div></div>
-                <span class="formulary-tier" style="background:rgba(20,184,166,0.1);color:var(--teal-light);border-color:rgba(20,184,166,0.25);">Coupon</span>
-                <div class="formulary-price">$67<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-              <div class="formulary-row best">
-                <div class="formulary-drug"><div class="fname">Boehringer Ingelheim Cares — PAP</div><div class="fsub">Patient Assistance Program · Income-based · Auto-matched</div></div>
-                <span class="best-label">Best Option</span>
-                <div class="formulary-price best-price">$0<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Atorvastatin -->
-          <div class="drug-view" id="form-atorvastatin">
-            <div class="formulary-search">
-              <span>🔍 &nbsp;Atorvastatin 40mg · M. Davis · Medicare Part D (Aetna)</span>
-              <span class="search-pill">Live Pricing</span>
-            </div>
-            <div class="partd-banner">
-              <div class="partd-header">
-                <span class="partd-badge">Medicare Part D</span>
-                <span class="partd-phase-label deductible">⚠ Deductible Phase — Patient paying full negotiated price</span>
-              </div>
-              <div class="partd-bar-row">
-                <span>Annual Deductible Met</span>
-                <span><strong style="color:var(--text)">$380</strong> of $590</span>
-              </div>
-              <div class="partd-track"><div class="partd-fill deductible" style="width:64%"></div></div>
-              <div class="partd-note">
-                <strong>$210 remaining</strong> before copays kick in. During the deductible phase, Part D pays nothing — M. Davis is billed the plan's negotiated price for each drug.
-                After deductible: Tier 1 generic copay applies (~$4/mo). <strong>GoodRx bypasses insurance entirely</strong> and may be cheaper right now.
-              </div>
-            </div>
-            <div class="formulary-results">
-              <div class="formulary-row">
-                <div class="formulary-drug">
-                  <div class="fname">Lipitor 40mg (Brand)</div>
-                  <div class="fsub">Pfizer · Tier 3 · Negotiated rate applies during deductible</div>
-                </div>
-                <span class="formulary-tier">Tier 3</span>
-                <div class="formulary-price-stack">
-                  <span class="price-phase-label">Now (deductible)</span>
-                  <span class="price-now">$175<span style="font-size:.65rem;color:var(--muted)">/mo</span></span>
-                  <span class="price-phase-label">After deductible</span>
-                  <span class="price-after">$45<span style="font-size:.65rem;color:var(--muted)">/mo</span></span>
-                </div>
-              </div>
-              <div class="formulary-row">
-                <div class="formulary-drug">
-                  <div class="fname">Atorvastatin 40mg (Generic)</div>
-                  <div class="fsub">Multiple manufacturers · Tier 1 · Negotiated rate applies during deductible</div>
-                </div>
-                <span class="formulary-tier">Tier 1</span>
-                <div class="formulary-price-stack">
-                  <span class="price-phase-label">Now (deductible)</span>
-                  <span class="price-now">$18<span style="font-size:.65rem;color:var(--muted)">/mo</span></span>
-                  <span class="price-phase-label">After deductible</span>
-                  <span class="price-after">$4<span style="font-size:.65rem;color:var(--muted)">/mo</span></span>
-                </div>
-              </div>
-              <div class="formulary-row best">
-                <div class="formulary-drug">
-                  <div class="fname"><a href="https://www.goodrx.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">GoodRx Coupon</a></div>
-                  <div class="fsub">Bypasses Part D entirely · No deductible applies · Walmart, Kroger, Publix</div>
-                </div>
-                <span class="best-label">Best Right Now</span>
-                <div class="formulary-price-stack">
-                  <span class="price-phase-label">Now & after deductible</span>
-                  <span class="price-after" style="font-size:.95rem;font-weight:700;">$4<span style="font-size:.65rem;color:var(--muted)">/mo</span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Lisinopril -->
-          <div class="drug-view" id="form-lisinopril">
-            <div class="formulary-search">
-              <span>🔍 &nbsp;Lisinopril 10mg · R. Thompson · BCBS Plan</span>
-              <span class="search-pill">Live Pricing</span>
-            </div>
-            <div class="formulary-results">
-              <div class="formulary-row">
-                <div class="formulary-drug"><div class="fname">Lisinopril 10mg (Generic)</div><div class="fsub">Multiple manufacturers · Formulary Tier 1</div></div>
-                <span class="formulary-tier">Tier 1</span>
-                <div class="formulary-price">$8<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-              <div class="formulary-row">
-                <div class="formulary-drug"><div class="fname">Zestril 10mg (Brand)</div><div class="fsub">AstraZeneca · Formulary Tier 3 — Non-preferred</div></div>
-                <span class="formulary-tier">Tier 3</span>
-                <div class="formulary-price">$189<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-              <div class="formulary-row best">
-                <div class="formulary-drug"><div class="fname"><a href="https://www.goodrx.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">GoodRx Coupon</a></div><div class="fsub">Available at CVS, Walmart, Kroger pharmacy</div></div>
-                <span class="best-label">Best Option</span>
-                <div class="formulary-price best-price">$3<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Ozempic -->
-          <div class="drug-view" id="form-ozempic">
-            <div class="formulary-search">
-              <span>🔍 &nbsp;Ozempic 0.5mg · D. Chen · Cigna Plan</span>
-              <span class="search-pill">Live Pricing</span>
-            </div>
-            <div class="formulary-results">
-              <div class="formulary-row">
-                <div class="formulary-drug"><div class="fname">Ozempic 0.5mg (Brand)</div><div class="fsub">Novo Nordisk · Formulary Tier 3</div></div>
-                <span class="formulary-tier">Tier 3</span>
-                <div class="formulary-price">$935<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-              <div class="formulary-row">
-                <div class="formulary-drug"><div class="fname"><a href="https://www.goodrx.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">GoodRx Coupon</a></div><div class="fsub">Varies by pharmacy · Best savings at Costco</div></div>
-                <span class="formulary-tier" style="background:rgba(20,184,166,0.1);color:var(--teal-light);border-color:rgba(20,184,166,0.25);">Coupon</span>
-                <div class="formulary-price">$847<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-              <div class="formulary-row">
-                <div class="formulary-drug"><div class="fname">Novo Nordisk Patient Assistance</div><div class="fsub">Income &lt;400% FPL · Uninsured or underinsured · 7–10 days</div></div>
-                <span class="formulary-tier">PAP</span>
-                <div class="formulary-price">$99<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-              <div class="formulary-row best">
-                <div class="formulary-drug"><div class="fname">Ozempic Savings Card (Novo Nordisk)</div><div class="fsub">Commercially insured · Not eligible if on Medicare/Medicaid</div></div>
-                <span class="best-label">Best Option</span>
-                <div class="formulary-price best-price">$25<span style="font-size:.7rem;color:var(--muted)">/mo</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PAP Panel -->
-        <div class="preview-panel" id="panel-pap">
-          <div class="mock-header-row">
-            <span class="mock-title">PAP Detection — Auto-Matched Programs</span>
-          </div>
-          <p class="panel-desc">Savanti automatically scans 3,000+ Patient Assistance Programs and matches each patient to what they qualify for — no manual searching. <strong>Select a patient</strong> to see their matched programs, estimated savings, and a one-click Apply button that pre-fills their application. <span class="term-tip" data-tip="PAP = Patient Assistance Program. Manufacturer-sponsored programs that provide medications free or at low cost to qualifying patients.">What is a PAP?</span></p>
-          <div class="drug-selector">
-            <button class="drug-pill active" onclick="switchPapPatient('johnson',this)">T. Johnson — Jardiance</button>
-            <button class="drug-pill" onclick="switchPapPatient('davis',this)">M. Davis — Atorvastatin</button>
-            <button class="drug-pill" onclick="switchPapPatient('chen',this)">D. Chen — Ozempic</button>
-          </div>
-
-          <!-- T. Johnson -->
-          <div class="drug-view active" id="pap-johnson">
-            <div class="pap-patient">
-              <div class="pap-patient-label">Patient</div>
-              <div class="pap-patient-name">T. Johnson &nbsp;·&nbsp; <span style="font-weight:400;color:var(--muted)">Jardiance 10mg</span></div>
-              <div class="pap-patient-drug">Type 2 Diabetes · Annual income &lt;$38,000 · Uninsured</div>
-              <div class="pap-patient-cost">$342/mo out-of-pocket → 4 programs found</div>
-            </div>
-            <div class="pap-list">
-              <div class="pap-card">
-                <div class="pap-logo">🏥</div>
-                <div class="pap-info"><div class="pap-name">Boehringer Ingelheim Cares Foundation</div><div class="pap-sub">Income threshold: &lt;400% FPL · Likely eligible · Processing: 5–7 days</div></div>
-                <div class="pap-savings">$0/mo</div>
-                <button class="pap-apply" onclick="showToast('Application started for T. Johnson ✓')">Apply</button>
-              </div>
-              <div class="pap-card">
-                <div class="pap-logo">🏛️</div>
-                <div class="pap-info"><div class="pap-name">RxAssist — Federal Patient Assistance</div><div class="pap-sub">Government-verified programs · Income-based · Broad eligibility</div></div>
-                <div class="pap-savings">$0/mo</div>
-                <button class="pap-apply" onclick="showToast('Application started for T. Johnson ✓')">Apply</button>
-              </div>
-              <div class="pap-card">
-                <div class="pap-logo">💊</div>
-                <div class="pap-info"><div class="pap-name">NeedyMeds Coupon</div><div class="pap-sub">No income requirement · Instant savings · Print or digital</div></div>
-                <div class="pap-savings">−$275</div>
-                <button class="pap-apply" onclick="showToast('Coupon sent to T. Johnson ✓')">Apply</button>
-              </div>
-              <div class="pap-card">
-                <div class="pap-logo">💳</div>
-                <div class="pap-info"><div class="pap-name"><a href="https://www.goodrx.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">GoodRx Gold</a></div><div class="pap-sub">No restrictions · Accepted at CVS, Walgreens, Walmart & more</div></div>
-                <div class="pap-savings">$67/mo</div>
-                <a href="https://www.goodrx.com" target="_blank" rel="noopener"><button class="pap-apply">Apply</button></a>
-              </div>
-            </div>
-          </div>
-
-          <!-- M. Davis -->
-          <div class="drug-view" id="pap-davis">
-            <div class="pap-patient">
-              <div class="pap-patient-label">Patient</div>
-              <div class="pap-patient-name">M. Davis &nbsp;·&nbsp; <span style="font-weight:400;color:var(--muted)">Atorvastatin 40mg</span></div>
-              <div class="pap-patient-drug">Hyperlipidemia · Annual income &lt;$28,000 · Medicare Part D</div>
-              <div class="pap-patient-cost">$298/mo brand → Generic available at $4/mo</div>
-            </div>
-            <div class="pap-list">
-              <div class="pap-card">
-                <div class="pap-logo">💊</div>
-                <div class="pap-info"><div class="pap-name">Generic Atorvastatin 40mg — Switch</div><div class="pap-sub">Immediate recommendation · No prior auth needed · Tier 1</div></div>
-                <div class="pap-savings">$4/mo</div>
-                <button class="pap-apply" onclick="showToast('Generic switch initiated for M. Davis ✓')">Switch</button>
-              </div>
-              <div class="pap-card">
-                <div class="pap-logo">🏥</div>
-                <div class="pap-info"><div class="pap-name">Pfizer RxPathways</div><div class="pap-sub">For brand Lipitor · Income &lt;$35k · Processing: 7–10 days</div></div>
-                <div class="pap-savings">$0/mo</div>
-                <button class="pap-apply" onclick="showToast('Application started for M. Davis ✓')">Apply</button>
-              </div>
-              <div class="pap-card">
-                <div class="pap-logo">💳</div>
-                <div class="pap-info"><div class="pap-name"><a href="https://www.goodrx.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">GoodRx Gold</a></div><div class="pap-sub">$4 generic programs at Walmart, Kroger, Publix</div></div>
-                <div class="pap-savings">$4/mo</div>
-                <a href="https://www.goodrx.com" target="_blank" rel="noopener"><button class="pap-apply">Apply</button></a>
-              </div>
-            </div>
-          </div>
-
-          <!-- D. Chen -->
-          <div class="drug-view" id="pap-chen">
-            <div class="pap-patient">
-              <div class="pap-patient-label">Patient</div>
-              <div class="pap-patient-name">D. Chen &nbsp;·&nbsp; <span style="font-weight:400;color:var(--muted)">Ozempic 0.5mg</span></div>
-              <div class="pap-patient-drug">Type 2 Diabetes · Annual income &lt;$45,000 · Commercially insured</div>
-              <div class="pap-patient-cost">$935/mo out-of-pocket → 3 programs found</div>
-            </div>
-            <div class="pap-list">
-              <div class="pap-card">
-                <div class="pap-logo">💳</div>
-                <div class="pap-info"><div class="pap-name">Novo Nordisk Savings Card</div><div class="pap-sub">Commercially insured · Not eligible if on Medicare/Medicaid · Instant</div></div>
-                <div class="pap-savings">$25/mo</div>
-                <button class="pap-apply" onclick="showToast('Savings card activated for D. Chen ✓')">Apply</button>
-              </div>
-              <div class="pap-card">
-                <div class="pap-logo">🏥</div>
-                <div class="pap-info"><div class="pap-name">Novo Nordisk Patient Assistance Program</div><div class="pap-sub">Income &lt;400% FPL · Likely eligible · Processing: 7–10 days</div></div>
-                <div class="pap-savings">$99/mo</div>
-                <button class="pap-apply" onclick="showToast('Application started for D. Chen ✓')">Apply</button>
-              </div>
-              <div class="pap-card">
-                <div class="pap-logo">💊</div>
-                <div class="pap-info"><div class="pap-name">NeedyMeds — Ozempic Programs</div><div class="pap-sub">Multiple programs · No income requirement for some options</div></div>
-                <div class="pap-savings">varies</div>
-                <button class="pap-apply" onclick="showToast('Programs listed for D. Chen ✓')">Apply</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- OUTCOMES -->
-<section id="outcomes">
-  <p class="section-label">Proven Results</p>
-  <h2>Outcomes that move the needle</h2>
-  <p class="section-sub">Outcome data gathered in partnership with Manchester Pharmacy and Rhodes Pharmacy.</p>
-  <div class="stats-row">
-    <div class="stat"><div class="stat-num">+12%</div><p>PDC improvement across pilot cohort</p></div>
-    <div class="stat"><div class="stat-num">$3,400</div><p>Annual savings per adherent patient</p></div>
-    <div class="stat"><div class="stat-num">60s</div><p>Average time to complete adherence review</p></div>
-    <div class="stat"><div class="stat-num">4.9★</div><p>Pharmacist satisfaction rating</p></div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section id="pricing">
-  <p class="section-label">Pricing</p>
-  <h2>Transparent, scalable plans</h2>
-  <p class="section-sub">No hidden fees. Cancel anytime. All plans include onboarding support and PharmD-reviewed clinical content.</p>
-  <div class="pricing-grid">
-    <div class="pricing-card">
-      <h3>Pharmacy Starter</h3>
-      <div class="price">$299<span>/location/mo</span></div>
-      <ul>
-        <li>Up to 50 patients</li>
-        <li>PDC & MPR scoring</li>
-        <li>Refill alerts</li>
-        <li>Discount card hub</li>
-        <li>Email support</li>
-      </ul>
-      <a href="#demo" class="btn-card">Get Started</a>
-    </div>
-    <div class="pricing-card featured">
-      <h3>Health System Clinical</h3>
-      <div class="price">$499<span>/location/mo</span></div>
-      <ul>
-        <li>Unlimited patient roster</li>
-        <li>Full formulary intelligence</li>
-        <li>PAP detection</li>
-        <li>GDMT decision support</li>
-        <li>Priority support</li>
-      </ul>
-      <a href="#demo" class="btn-card">Get Started</a>
-    </div>
-    <div class="pricing-card">
-      <h3>PBM Enterprise</h3>
-      <div class="price">Custom<span> PMPM</span></div>
-      <ul>
-        <li>White-label options</li>
-        <li>API & EHR integrations</li>
-        <li>Custom HEDIS reporting</li>
-        <li>Dedicated CSM</li>
-        <li>SLA guarantees</li>
-      </ul>
-      <a href="#demo" class="btn-card">Contact Sales</a>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <p class="section-label">The Story Behind Savanti</p>
-  <div class="about-wrapper">
-    <div class="about-badge">
-      <svg class="about-avatar" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" style="background:#1e2d4a;">
-        <circle cx="55" cy="42" r="22" fill="#4f46e5" opacity="0.85"/>
-        <ellipse cx="55" cy="95" rx="34" ry="22" fill="#4f46e5" opacity="0.85"/>
-      </svg>
-      <h3>Mohamed Mohamed</h3>
-      <p>PharmD Candidate 2027<br />Atlanta, Georgia</p>
-      <span class="badge-tag">Founder</span>
-    </div>
-    <div class="about-content">
-      <h2>Built from the counter up</h2>
-      <p>Before pharmacy school, Mohamed spent five years working the retail pharmacy counter — fielding calls from confused patients, watching people walk away from prescriptions they couldn't afford, and seeing firsthand how the system fails people at the exact moment they need it most.</p>
-      <p>Those years made one thing clear: the gap between clinical intent and patient outcome isn't a knowledge problem — it's a tools problem. Pharmacists care deeply. They just don't have the right systems to act on that care at scale.</p>
-      <p>Now in pharmacy school, Mohamed is combining that ground-level experience with rigorous clinical training — pharmacokinetics, therapeutics, HEDIS metrics, and guideline-directed care — alongside a growing foundation in healthcare business strategy. Savanti is where all of that converges: a platform designed by someone who has lived both sides of the equation.</p>
-      <div class="about-cta">
-        <span class="about-cta-label">Free Consultation</span>
-        <a href="tel:4045285461">📞 (404) 528-5461</a>
-        <span class="divider">·</span>
-        <a href="mailto:savantihealth@outlook.com?subject=Savanti%20Demo%20Request">✉️ savantihealth@outlook.com</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq" style="padding: 5rem 2rem;">
-  <div class="faq-wrapper">
-    <h2>Common Questions</h2>
-    <p class="section-sub">Quick answers to what pharmacists ask us most. Still have questions? Call or email anytime.</p>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        We already use spreadsheets — why switch?
-        <span class="chevron">▼</span>
-      </button>
-      <div class="faq-answer">
-        <strong>Spreadsheets show you problems after they happen. Savanti catches them before.</strong><br><br>
-        By the time a gap shows up in a spreadsheet, the patient has already missed days — and those days count against your PDC score. Savanti flags at-risk patients in real time so you can reach out while there's still time to act. Most pharmacists tell us they didn't realize how many patients were quietly falling off therapy until they saw it live.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Does it work with my current pharmacy software?
-        <span class="chevron">▼</span>
-      </button>
-      <div class="faq-answer">
-        <strong>Most likely yes — and we handle the setup for you.</strong><br><br>
-        Savanti connects with QS/1, PioneerRx, Liberty Software, and major EHR platforms including Epic, Cerner, and Athena. No IT team needed on your end. Most pharmacies are live within 5 business days.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Is patient data safe? Are you HIPAA-compliant?
-        <span class="chevron">▼</span>
-      </button>
-      <div class="faq-answer">
-        <strong>Yes — HIPAA-compliant and SOC 2 Type II certified.</strong><br><br>
-        All data is encrypted in transit and at rest. We sign a Business Associate Agreement (BAA) with every customer. We never sell or share patient data outside your workflow. Annual third-party security audits are standard.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Can Savanti help patients who can't afford their medications?
-        <span class="chevron">▼</span>
-      </button>
-      <div class="faq-answer">
-        <strong>Yes — it's one of the most impactful things Savanti does.</strong><br><br>
-        When a patient fills a high-cost medication, Savanti automatically scans 3,000+ manufacturer programs, co-pay cards, and patient assistance programs to find what they qualify for. No manual searching. It shows up right at the point of care. We've seen this cut out-of-pocket costs dramatically and keep patients on therapy longer.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Will this improve our Star Ratings?
-        <span class="chevron">▼</span>
-      </button>
-      <div class="faq-answer">
-        <strong>Yes — and it's one of the clearest ROI cases we make.</strong><br><br>
-        Star Ratings are heavily tied to adherence for diabetes, hypertension, and cholesterol medications. Savanti monitors every patient against those HEDIS thresholds and flags anyone trending below 80% PDC — early enough to intervene. Pilot sites saw measurable improvement within the first 90 days.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        What's the difference between Starter and Clinical?
-        <span class="chevron">▼</span>
-      </button>
-      <div class="faq-answer">
-        <strong>Starter is for independent pharmacies. Clinical is for larger teams that need more.</strong><br><br>
-        <strong>Starter ($299/mo):</strong> Up to 50 patients, PDC tracking, refill alerts, discount card hub.<br>
-        <strong>Clinical ($499/mo):</strong> Unlimited patients, live formulary comparisons, automatic PAP matching, GDMT decision support for heart failure, diabetes, and CAD.<br><br>
-        Both include onboarding support and PharmD-reviewed clinical content.
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        Can we try it for free first?
-        <span class="chevron">▼</span>
-      </button>
-      <div class="faq-answer">
-        <strong>Yes — 30-day pilot, no credit card required.</strong><br><br>
-        Qualified organizations get full access to their chosen plan, a dedicated onboarding contact, and help loading their patient roster from day one. Just request a demo below and we'll get you set up.
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- DEMO FORM -->
-<section id="demo">
-  <div class="demo-wrapper">
-    <p class="section-label">Get Started</p>
-    <h2>Request a demo</h2>
-    <p class="section-sub" style="margin-bottom:0;">Tell us a bit about your organization and we'll reach out within one business day to schedule a walkthrough.</p>
-
-    <div class="demo-form">
-      <div id="form-body">
-        <form action="https://formspree.io/f/xpqylyno" method="POST" onsubmit="handleSubmit(event)">
-          <input type="hidden" name="_subject" value="New Demo Request — Savanti" />
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fname">First Name</label>
-              <input type="text" id="fname" name="first_name" placeholder="Jane" required />
-            </div>
-            <div class="form-group">
-              <label for="lname">Last Name</label>
-              <input type="text" id="lname" name="last_name" placeholder="Smith" required />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="org">Pharmacy / Organization Name</label>
-            <input type="text" id="org" name="organization" placeholder="Manchester Pharmacy" required />
-          </div>
-
-          <div class="form-group">
-            <label for="role">Your Role</label>
-            <select id="role" name="role" required>
-              <option value="" disabled selected>Select your role</option>
-              <option>Pharmacist / Pharmacy Owner</option>
-              <option>Pharmacy Technician</option>
-              <option>Health Plan / PBM</option>
-              <option>Hospital / Health System</option>
-              <option>Other</option>
-            </select>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="jane@pharmacy.com" required />
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="(404) 000-0000" />
-            </div>
-          </div>
-
-          <button type="submit" class="form-submit">Request My Demo →</button>
-          <p class="form-note">No commitment required. We'll reach out within 1 business day.</p>
+  <section class="waitlist" id="waitlist">
+    <div class="container">
+      <div class="waitlist-inner">
+        <div class="label">Early Access</div>
+        <h2>Be first in the<br /><em>door.</em></h2>
+        <p>Early members get 3 months free and a dedicated onboarding call. Drop your email and we'll reach out as soon as your spot is ready.</p>
+        <form class="waitlist-form" id="waitlistForm" onsubmit="handleWaitlist(event)">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit" class="btn btn-gold">Join Waitlist</button>
         </form>
-      </div>
-
-      <div class="form-success" id="form-success">
-        <div class="success-icon">✅</div>
-        <h3>You're on the list.</h3>
-        <p>We received your request and will reach out within one business day to schedule your walkthrough.<br /><br />
-        In the meantime, feel free to call or text Mohamed directly:<br />
-        <a href="tel:4045285461" style="color:var(--teal-light); text-decoration:none; font-weight:600;">(404) 528-5461</a></p>
+        <div class="waitlist-success" id="waitlistSuccess">
+          🎉 You're on the list! We'll be in touch soon. Questions? Call <a href="tel:4045285461" style="color:var(--green);font-weight:600;">(404) 528-5461</a>
+        </div>
+        <p class="waitlist-note">🔒 No spam. Unsubscribe anytime.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- WAITLIST -->
-<div id="waitlist">
-  <p class="section-label">Early Access</p>
-  <h2>Join the waitlist</h2>
-  <p class="section-sub">Be the first to know when Savanti launches. Early members get 3 months free and a dedicated onboarding call.</p>
+  <section id="demo">
+    <div class="container">
+      <div class="demo-inner">
+        <div class="demo-header">
+          <div class="label">Get in Touch</div>
+          <h2>Request a <em>demo.</em></h2>
+          <p>Tell us about your organization and we'll reach out within one business day to schedule your walkthrough.</p>
+        </div>
+        <div class="demo-form" id="demoFormWrap">
+          <form id="demoForm" onsubmit="handleDemo(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" placeholder="First" required />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" placeholder="Last" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label>Pharmacy / Organization</label>
+                <input type="text" placeholder="Manchester Pharmacy" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Your Role</label>
+                <select required>
+                  <option value="">Select your role</option>
+                  <option>Pharmacist / Pharmacy Owner</option>
+                  <option>Pharmacy Technician</option>
+                  <option>Health Plan / PBM</option>
+                  <option>Hospital / Health System</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" placeholder="(404) 000-0000" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label>Email Address</label>
+                <input type="email" placeholder="you@pharmacy.com" required />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Request My Demo →</button>
+            <p class="form-legal">No commitment required. We'll reach out within 1 business day.</p>
+          </form>
+          <div class="demo-success" id="demoSuccess">
+            <div class="demo-success-icon">✅</div>
+            <h3>You're on the list.</h3>
+            <p>We received your request and will reach out within one business day. In the meantime, feel free to reach Mohamed directly at <a href="tel:4045285461" style="color:var(--green);font-weight:600;">(404) 528-5461</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div id="waitlist-form-body">
-    <form action="https://formspree.io/f/xkoqzqek" method="POST" onsubmit="handleWaitlist(event)" class="waitlist-form">
-      <input type="hidden" name="_subject" value="New Waitlist Signup — Savanti" />
-      <input type="text" name="pharmacy_name" placeholder="Pharmacy / Organization name" required />
-      <input type="email" name="email" placeholder="Your email address" required />
-      <button type="submit" class="waitlist-btn">Join Waitlist →</button>
-    </form>
-    <p class="waitlist-count">🔒 No spam. Unsubscribe anytime.</p>
-  </div>
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Savanti<span>.</span></div>
+        <ul class="footer-links">
+          <li><a href="tel:4045285461">(404) 528-5461</a></li>
+          <li><a href="mailto:savantihealth@outlook.com">savantihealth@outlook.com</a></li>
+          <li><a href="#demo">Request Demo</a></li>
+        </ul>
+        <div class="footer-copy">Platform in development. Metrics reflect IRB-approved pilot data. Not yet FDA-cleared. · © 2026 Savanti Health, Inc. · Built by pharmacists, for pharmacists.</div>
+      </div>
+    </div>
+  </footer>
 
-  <div class="waitlist-success" id="waitlist-success">
-    <div class="waitlist-success-icon">🎉</div>
-    <h3 style="margin-bottom:.5rem;">You're on the list!</h3>
-    <p style="color:var(--muted);font-size:.95rem;">We'll be in touch as soon as early access opens. Questions? Call <a href="tel:4045285461" style="color:var(--teal-light);text-decoration:none;">(404) 528-5461</a>.</p>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <p><strong>Mohamed Mohamed</strong> &nbsp;·&nbsp; PharmD Candidate 2027</p>
-  <p style="margin-top:.5rem;">
-    📞 <a href="tel:4045285461" style="color:var(--teal-light); text-decoration:none;">(404) 528-5461</a>
-    &nbsp;·&nbsp;
-    ✉️ <a href="mailto:savantihealth@outlook.com" style="color:var(--teal-light); text-decoration:none;">savantihealth@outlook.com</a>
-  </p>
-  <p style="margin-top:.5rem;">Atlanta, Georgia &nbsp;·&nbsp; <strong>Savanti</strong> — Built by pharmacists, for pharmacists.</p>
-  <p style="margin-top:.5rem; font-size:0.75rem; color: var(--muted);">Platform in development. Metrics reflect IRB-approved pilot data. Not yet FDA-cleared. &nbsp;·&nbsp; © 2026 Savanti Health, Inc.</p>
-</footer>
-
-<script>
-  function toggleFaq(btn) {
-    const item = btn.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
-
-  function switchTab(tab, btn) {
-    document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.preview-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('panel-' + tab).classList.add('active');
-  }
-
-  const patientData = {
-    'J. Williams': { condition: 'Type 2 Diabetes', plan: 'Blue Cross Blue Shield', lastFill: 'Feb 18, 2026', nextDue: 'Mar 28, 2026', pdcNote: 'PDC 91% — On track for HEDIS CDC measure. No adherence gap detected.', flag: 'Upcoming refill in 8 days. Proactive outreach now helps maintain the streak.', action: 'Schedule refill reminder' },
-    'R. Thompson': { condition: 'Hypertension (HTN)', plan: 'Aetna', lastFill: 'Mar 14, 2026', nextDue: 'Mar 17, 2026', pdcNote: 'PDC 74% — Below the 80% HEDIS threshold for HTN measure. At risk of missing Star target.', flag: 'Missed fill in January caused PDC drop. Refill due today — immediate outreach recommended.', action: 'Call patient now' },
-    'M. Davis': { condition: 'Hyperlipidemia (HLD)', plan: 'Medicare Part D (Aetna)', lastFill: 'Jan 30, 2026', nextDue: 'Feb 28, 2026', pdcNote: 'PDC 67% — Critically below HEDIS threshold. Cholesterol Management measure at risk.', flag: '2 days overdue. Currently in deductible phase — paying $18/mo for generic (vs $4/mo after deductible). Cost barrier is likely. GoodRx at $4/mo bypasses the deductible entirely.', action: 'Call now + offer GoodRx to bypass deductible', partD: { phase: 'Deductible Phase', phaseBadge: 'deductible', met: 380, total: 590, oopMet: 380, oopCap: 2000, barPct: 64, note: 'Patient is currently paying the full negotiated price for all medications. $210 remaining until copays begin. After deductible: Tier 1 generic drops to ~$4/mo. Recommending GoodRx now saves immediately.' } },
-    'S. Patel': { condition: 'Heart Failure (HFrEF)', plan: 'United Healthcare', lastFill: 'Mar 5, 2026', nextDue: 'Apr 4, 2026', pdcNote: 'PDC 88% — Above 80% threshold. On track for GDMT adherence goals.', flag: 'Carvedilol is part of guideline-directed therapy (GDMT) for HFrEF. Patient is adherent — continue monitoring.', action: 'No immediate action needed' },
-    'T. Johnson': { condition: 'Type 2 Diabetes', plan: 'United Healthcare', lastFill: 'Mar 16, 2026', nextDue: 'Mar 18, 2026', pdcNote: 'PDC 61% — Well below HEDIS threshold. Star measure patient — this gap directly impacts plan ratings.', flag: 'Refill due tomorrow. Uninsured — $342/mo out-of-pocket. Boehringer Ingelheim Cares PAP available at $0/mo.', action: 'Reach out today + initiate PAP application' },
-    'K. Brown': { condition: 'Hypertension (HTN)', plan: 'Cigna', lastFill: 'Feb 20, 2026', nextDue: 'Mar 22, 2026', pdcNote: 'PDC 55% — Critical. Multiple missed fills detected. HEDIS HTN measure severely at risk.', flag: '4 days overdue. Patient has a pattern of late fills. Counseling on the importance of daily adherence is recommended.', action: 'Call immediately' },
-    'A. Rodriguez': { condition: 'Hyperlipidemia (HLD)', plan: 'Blue Cross Blue Shield', lastFill: 'Mar 1, 2026', nextDue: 'Apr 2, 2026', pdcNote: 'PDC 85% — On track for HEDIS Cholesterol Management measure.', flag: 'Next refill in 18 days. Adherent patient — no action needed at this time.', action: 'Routine monitoring' },
-    'L. Garcia': { condition: 'Heart Failure (HFrEF)', plan: 'Medicare Part D', lastFill: 'Mar 13, 2026', nextDue: 'Mar 21, 2026', pdcNote: 'PDC 77% — Just below 80% HEDIS threshold. At risk of not counting toward measure.', flag: 'Spironolactone is GDMT for HFrEF. Refill due in 4 days — proactive outreach now protects the PDC score. Deductible already met — standard copay applies.', action: 'Reach out within the next 1–2 days', partD: { phase: 'Initial Coverage', phaseBadge: 'initial', met: 590, total: 590, oopMet: 820, oopCap: 2000, barPct: 100, note: 'Deductible fully met for 2026. Patient is now in Initial Coverage — paying standard Part D copays. $820 of the $2,000 OOP cap spent. After $2,000 total: catastrophic coverage, patient pays nothing.' } },
-    'P. Williams': { condition: 'Heart Failure (HFrEF)', plan: 'United Healthcare', lastFill: 'Feb 24, 2026', nextDue: 'Apr 6, 2026', pdcNote: 'PDC 93% — Excellent adherence. GDMT-adherent patient on Entresto (sacubitril/valsartan).', flag: 'Next refill in 22 days. Guideline-directed therapy is being followed — continue monitoring.', action: 'No action needed' },
-    'D. Chen': { condition: 'Type 2 Diabetes', plan: 'Cigna', lastFill: 'Mar 15, 2026', nextDue: 'Mar 19, 2026', pdcNote: 'PDC 69% — Below 80% HEDIS threshold. Star measure patient — gap needs to be closed.', flag: 'Refill due in 2 days. Ozempic is $935/mo — Novo Nordisk Savings Card brings it to $25/mo. Patient may not know this.', action: 'Reach out + activate Novo Nordisk savings card' }
-  };
-
-  let selectedPatientName = '';
-  function selectPatient(row, name, drug) {
-    document.querySelectorAll('#dashboard-table tbody tr').forEach(r => r.classList.remove('row-selected'));
-    row.classList.add('row-selected');
-    selectedPatientName = name;
-    const bar = document.getElementById('patient-action-bar');
-    bar.classList.add('visible');
-    document.getElementById('pab-label').textContent = name + ' — ' + drug;
-    const d = patientData[name];
-    if (d) {
-      document.getElementById('pd-condition').textContent = d.condition;
-      document.getElementById('pd-plan').textContent = d.plan;
-      document.getElementById('pd-lastfill').textContent = d.lastFill;
-      document.getElementById('pd-nextdue').textContent = d.nextDue;
-      document.getElementById('pd-pdcnote').textContent = d.pdcNote;
-      document.getElementById('pd-flag').textContent = d.flag;
-      document.getElementById('pd-action').textContent = d.action;
-      const partdBlock = document.getElementById('pd-partd-block');
-      if (d.partD) {
-        document.getElementById('pd-partd-phase').textContent = d.partD.phase;
-        document.getElementById('pd-partd-phase').className = 'partd-phase-label ' + d.partD.phaseBadge;
-        const isMet = d.partD.met >= d.partD.total;
-        document.getElementById('pd-partd-bar-label').textContent = isMet ? 'Deductible Status' : 'Deductible Progress';
-        document.getElementById('pd-partd-bar-vals').textContent = isMet ? '✓ Met ($' + d.partD.total + ')' : '$' + d.partD.met + ' of $' + d.partD.total;
-        const fill = document.getElementById('pd-partd-fill');
-        fill.style.width = d.partD.barPct + '%';
-        fill.className = 'partd-fill ' + d.partD.phaseBadge;
-        document.getElementById('pd-partd-oop').textContent = '$' + d.partD.oopMet + ' of $' + d.partD.oopCap + ' cap';
-        document.getElementById('pd-partd-note').textContent = d.partD.note;
-        partdBlock.classList.add('visible');
-      } else {
-        partdBlock.classList.remove('visible');
-      }
-      document.getElementById('patient-detail-card').classList.add('visible');
+  <script>
+    function handleWaitlist(e) {
+      e.preventDefault();
+      document.getElementById('waitlistForm').style.display = 'none';
+      document.getElementById('waitlistSuccess').style.display = 'block';
     }
-  }
-
-  function logPatientAction(type) {
-    if (!selectedPatientName) return;
-    const msgs = { Call: 'Call logged for ' + selectedPatientName + ' ✓', Contacted: selectedPatientName + ' marked as contacted ✓', Note: 'Note added for ' + selectedPatientName + ' ✓' };
-    showToast(msgs[type]);
-  }
-
-  function logAlert(btn, name) {
-    btn.textContent = 'Logged ✓';
-    btn.style.cssText = 'background:rgba(20,184,166,0.15);border:1px solid rgba(20,184,166,0.4);color:var(--teal-light);cursor:default;';
-    btn.disabled = true;
-    showToast('Outreach logged for ' + name + ' ✓');
-  }
-
-  function switchFormDrug(drug, el) {
-    document.querySelectorAll('#panel-formulary .drug-pill').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('#panel-formulary .drug-view').forEach(v => v.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('form-' + drug).classList.add('active');
-  }
-
-  function switchPapPatient(patient, el) {
-    document.querySelectorAll('#panel-pap .drug-pill').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('#panel-pap .drug-view').forEach(v => v.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('pap-' + patient).classList.add('active');
-  }
-
-  function filterTable(val) {
-    const q = val.toLowerCase();
-    document.querySelectorAll('#dashboard-table tbody tr').forEach(row => {
-      row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    function handleDemo(e) {
+      e.preventDefault();
+      document.getElementById('demoForm').style.display = 'none';
+      document.getElementById('demoSuccess').style.display = 'block';
+    }
+    const sections = document.querySelectorAll('section[id], div[id="demo"]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+      navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--green)' : ''; });
     });
-  }
-
-  function showToast(msg) {
-    let toast = document.getElementById('savanti-toast');
-    if (!toast) { toast = document.createElement('div'); toast.id = 'savanti-toast'; toast.className = 'toast'; document.body.appendChild(toast); }
-    toast.textContent = msg;
-    toast.classList.add('show');
-    clearTimeout(toast._t);
-    toast._t = setTimeout(() => toast.classList.remove('show'), 2800);
-  }
-
-  function handleWaitlist(e) {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    fetch('/', { method: 'POST', body: data })
-      .finally(() => {
-        document.getElementById('waitlist-form-body').style.display = 'none';
-        document.getElementById('waitlist-success').style.display = 'block';
-      });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-    fetch('/', { method: 'POST', body: data })
-      .then(() => {
-        document.getElementById('form-body').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-      })
-      .catch(() => {
-        document.getElementById('form-body').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-      });
-  }
-</script>
+  </script>
 
 </body>
 </html>
