@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Savanti – Clinical Pharmacy Intelligence</title>
+  <title>Savanti – Find the Lowest Price for Any Prescription</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-
   <style>
     :root {
       --cream:       #FAF7F2;
       --cream-dark:  #F2EBE0;
-      --green:       #1C2B5A;
-      --green-mid:   #2D3F74;
-      --green-light: #EAEEFC;
+      --navy:        #1C2B5A;
+      --navy-mid:    #2D3F74;
+      --navy-light:  #EAEEFC;
       --gold:        #B8923A;
       --gold-light:  #F7EED8;
       --charcoal:    #1A1A2A;
@@ -34,76 +33,135 @@
     html { scroll-behavior: smooth; }
     body { background: var(--cream); color: var(--charcoal); font-family: var(--font-sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
     .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
-    .label { display: inline-block; font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); background: var(--gold-light); border: 1px solid #D4B87A; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .label { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); background: var(--gold-light); border: 1px solid #D4B87A; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px; }
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 15px; font-weight: 600; cursor: pointer; border: none; transition: all 0.18s ease; text-decoration: none; }
-    .btn-primary { background: var(--green); color: var(--white); }
-    .btn-primary:hover { background: var(--green-mid); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-    .btn-outline { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
-    .btn-outline:hover { background: var(--green-light); }
+    .btn-primary { background: var(--navy); color: var(--white); }
+    .btn-primary:hover { background: var(--navy-mid); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+    .btn-outline:hover { background: var(--navy-light); }
     .btn-gold { background: var(--gold); color: var(--white); }
     .btn-gold:hover { background: #9a7a2e; transform: translateY(-1px); box-shadow: var(--shadow-md); }
-    nav { position: sticky; top: 0; z-index: 100; background: rgba(250, 246, 239, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(250,247,242,0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-    .nav-logo { font-family: var(--font-serif); font-size: 22px; font-weight: 600; color: var(--green); letter-spacing: -0.02em; }
+    .nav-logo { font-family: var(--font-serif); font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
     .nav-logo span { color: var(--gold); }
     .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
     .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.15s; }
-    .nav-links a:hover { color: var(--green); }
-    .nav-cta { display: flex; align-items: center; gap: 12px; }
-    .hero { padding: 110px 0 90px; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: -120px; right: -180px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(196,136,42,0.10) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
-    .hero::after { content: ''; position: absolute; bottom: -80px; left: -120px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(42,92,69,0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
-    .hero-inner { position: relative; max-width: 780px; }
-    .hero h1 { font-family: var(--font-serif); font-size: clamp(44px, 6vw, 72px); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; color: var(--charcoal); margin-bottom: 24px; }
-    .hero h1 em { font-style: italic; color: var(--green); }
-    .hero-sub { font-size: 18px; color: var(--muted); max-width: 560px; margin-bottom: 44px; line-height: 1.7; }
+    .nav-links a:hover { color: var(--navy); }
+
+    /* HERO */
+    .hero { padding: 100px 0 80px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -100px; right: -150px; width: 550px; height: 550px; background: radial-gradient(circle, rgba(184,146,58,0.09) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: -60px; left: -100px; width: 450px; height: 450px; background: radial-gradient(circle, rgba(28,43,90,0.06) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero-inner { position: relative; max-width: 760px; }
+    .hero h1 { font-family: var(--font-serif); font-size: clamp(40px, 5.5vw, 68px); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; color: var(--charcoal); margin-bottom: 24px; }
+    .hero h1 em { font-style: italic; color: var(--navy); }
+    .hero-sub { font-size: 18px; color: var(--muted); max-width: 540px; margin-bottom: 40px; line-height: 1.75; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-    .hero-note { font-size: 13px; color: var(--muted); margin-top: 20px; }
+    .hero-note { font-size: 13px; color: var(--muted); margin-top: 18px; }
     .hero-note span { color: var(--gold); font-weight: 600; }
-    .stats-strip { background: var(--green); padding: 48px 0; }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--navy); padding: 48px 0; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
     .stat-item { text-align: center; padding: 8px 24px; border-right: 1px solid rgba(255,255,255,0.15); }
     .stat-item:last-child { border-right: none; }
-    .stat-number { font-family: var(--font-serif); font-size: 48px; font-weight: 600; color: var(--white); line-height: 1; margin-bottom: 6px; }
-    .stat-label { font-size: 13px; color: rgba(255,255,255,0.65); letter-spacing: 0.04em; }
+    .stat-number { font-family: var(--font-serif); font-size: 44px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,0.60); letter-spacing: 0.03em; line-height: 1.4; }
+
+    /* PROBLEM */
     .problem { padding: 100px 0; }
     .problem-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .problem-text h2 { font-family: var(--font-serif); font-size: clamp(32px, 4vw, 46px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
-    .problem-text h2 em { font-style: italic; color: var(--green); }
-    .problem-text p { font-size: 16px; color: var(--muted); margin-bottom: 16px; line-height: 1.75; }
+    .problem-text h2 { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 42px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .problem-text h2 em { font-style: italic; color: var(--navy); }
+    .problem-text p { font-size: 16px; color: var(--muted); margin-bottom: 16px; line-height: 1.8; }
     .problem-cards { display: flex; flex-direction: column; gap: 16px; }
     .problem-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px 28px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
     .problem-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold); border-radius: 4px 0 0 4px; }
-    .problem-card-title { font-size: 15px; font-weight: 600; color: var(--charcoal); margin-bottom: 4px; }
-    .problem-card-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
-    .building { background: var(--cream-dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 100px 0; }
-    .building-header { text-align: center; max-width: 640px; margin: 0 auto 64px; }
-    .building-header h2 { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
-    .building-header h2 em { font-style: italic; color: var(--gold); }
-    .building-header p { font-size: 16px; color: var(--muted); }
-    .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .module-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 28px; box-shadow: var(--shadow-sm); transition: box-shadow 0.18s, transform 0.18s; }
-    .module-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-    .module-icon { width: 44px; height: 44px; background: var(--green-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
-    .module-title { font-size: 15px; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; }
-    .module-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
-    .module-tag { display: inline-block; margin-top: 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); background: var(--green-light); padding: 3px 10px; border-radius: 100px; }
+    .problem-card-title { font-size: 15px; font-weight: 600; color: var(--charcoal); margin-bottom: 5px; }
+    .problem-card-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* DRUG PRICING HUB */
+    .hub-section { padding: 100px 0; background: var(--cream-dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .hub-header { text-align: center; max-width: 660px; margin: 0 auto 52px; }
+    .hub-header h2 { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .hub-header h2 em { font-style: italic; color: var(--gold); }
+    .hub-header p { font-size: 16px; color: var(--muted); }
+    .hub-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+    .hub-tab { padding: 10px 22px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--muted); transition: all 0.18s; font-family: var(--font-sans); }
+    .hub-tab:hover { border-color: var(--navy); color: var(--navy); }
+    .hub-tab.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .hub-panel { display: none; }
+    .hub-panel.active { display: block; }
+    .drug-table-wrap { overflow-x: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-md); }
+    .drug-table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--white); min-width: 760px; }
+    .drug-table thead tr { background: var(--navy); }
+    .drug-table th { padding: 14px 16px; text-align: center; font-weight: 600; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.85); white-space: nowrap; }
+    .drug-table th:first-child { text-align: left; padding-left: 24px; }
+    .drug-table td { padding: 15px 16px; text-align: center; border-bottom: 1px solid var(--border); vertical-align: middle; color: var(--charcoal); font-weight: 500; }
+    .drug-table td:first-child { text-align: left; padding-left: 24px; }
+    .drug-table tr:last-child td { border-bottom: none; }
+    .drug-table tbody tr:hover td { background: #f5f0e8; }
+    .drug-name { font-weight: 700; font-size: 14px; color: var(--charcoal); }
+    .drug-qty { font-size: 12px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+    .price-retail { color: var(--muted); font-size: 13px; text-decoration: line-through; }
+    .price-val { font-weight: 600; }
+    .price-best { background: var(--gold-light); color: var(--gold); font-weight: 700; border: 1px solid #D4B87A; border-radius: 20px; padding: 4px 12px; display: inline-block; white-space: nowrap; font-size: 13px; }
+    .price-na { color: var(--border); font-size: 12px; }
+    .mfr-note { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; font-style: italic; }
+    .card-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; margin-bottom: 12px; }
+    .card-badge.goodrx { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .card-badge.scriptcycle { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+    .card-badge.singlecare { background: #fce4ec; color: #c62828; border: 1px solid #ef9a9a; }
+    .card-badge.mfr { background: var(--navy-light); color: var(--navy); border: 1px solid #b3bce8; }
+    .card-badge.trumprx { background: #fff8e1; color: #e65100; border: 1px solid #ffcc80; }
+    .hub-disclaimer { font-size: 12px; color: var(--muted); margin-top: 20px; text-align: center; line-height: 1.6; }
+    .col-header-badge { display: block; font-size: 10px; letter-spacing: 0.05em; opacity: 0.75; margin-top: 2px; font-weight: 400; text-transform: none; }
+
+    /* HOW IT WORKS */
+    .how-section { padding: 100px 0; }
+    .how-header { text-align: center; max-width: 560px; margin: 0 auto 60px; }
+    .how-header h2 { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .how-header p { font-size: 16px; color: var(--muted); }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .step-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 32px 28px; box-shadow: var(--shadow-sm); position: relative; }
+    .step-num { font-family: var(--font-serif); font-size: 48px; font-weight: 700; color: var(--gold); opacity: 0.35; line-height: 1; margin-bottom: 16px; }
+    .step-title { font-size: 16px; font-weight: 600; color: var(--charcoal); margin-bottom: 8px; }
+    .step-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ABOUT */
+    .about { background: var(--cream-dark); border-top: 1px solid var(--border); padding: 100px 0; }
+    .about-inner { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; }
+    .founder-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; box-shadow: var(--shadow-md); text-align: center; }
+    .founder-avatar { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-light), var(--gold-light)); display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 32px; font-weight: 700; color: var(--navy); margin: 0 auto 16px; border: 2px solid var(--border); }
+    .founder-name { font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
+    .founder-title { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .founder-contact { display: flex; flex-direction: column; gap: 8px; }
+    .founder-contact a { font-size: 14px; color: var(--navy); font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; transition: color 0.15s; }
+    .founder-contact a:hover { color: var(--gold); }
+    .about-right h2 { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .about-right h2 em { font-style: italic; color: var(--navy); }
+    .about-right p { font-size: 16px; color: var(--muted); margin-bottom: 16px; line-height: 1.8; }
+    .about-right p strong { color: var(--charcoal); font-weight: 600; }
+
+    /* PRICING */
     .pricing { padding: 100px 0; }
-    .pricing-header { text-align: center; max-width: 560px; margin: 0 auto 64px; }
-    .pricing-header h2 { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .pricing-header { text-align: center; max-width: 560px; margin: 0 auto 60px; }
+    .pricing-header h2 { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px; }
     .pricing-header p { font-size: 16px; color: var(--muted); }
     .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
     .pricing-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 36px 32px; position: relative; transition: box-shadow 0.18s; }
     .pricing-card:hover { box-shadow: var(--shadow-lg); }
-    .pricing-card.featured { border-color: var(--green); background: var(--green); color: var(--white); }
+    .pricing-card.featured { border-color: var(--navy); background: var(--navy); color: var(--white); }
     .pricing-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 18px; border-radius: 100px; white-space: nowrap; }
-    .plan-name { font-family: var(--font-serif); font-size: 22px; font-weight: 400; margin-bottom: 6px; }
+    .plan-name { font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 6px; }
     .plan-tagline { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
     .pricing-card.featured .plan-tagline { color: rgba(255,255,255,0.65); }
     .plan-price { margin-bottom: 28px; }
-    .plan-price .amount { font-family: var(--font-serif); font-size: 42px; font-weight: 600; line-height: 1; color: var(--charcoal); }
+    .plan-price .amount { font-family: var(--font-serif); font-size: 42px; font-weight: 700; line-height: 1; color: var(--charcoal); }
     .pricing-card.featured .plan-price .amount { color: var(--white); }
     .plan-price .period { font-size: 14px; color: var(--muted); margin-left: 4px; }
     .pricing-card.featured .plan-price .period { color: rgba(255,255,255,0.65); }
@@ -112,68 +170,64 @@
     .plan-features { list-style: none; margin-bottom: 32px; }
     .plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--muted); margin-bottom: 10px; }
     .pricing-card.featured .plan-features li { color: rgba(255,255,255,0.80); }
-    .plan-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .plan-features li::before { content: '✓'; color: var(--navy); font-weight: 700; flex-shrink: 0; }
     .pricing-card.featured .plan-features li::before { color: var(--gold); }
-    .btn-plan { width: 100%; justify-content: center; padding: 14px 24px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--green); background: transparent; color: var(--green); transition: all 0.18s; text-align: center; display: block; }
-    .btn-plan:hover { background: var(--green-light); }
-    .pricing-card.featured .btn-plan { background: var(--white); color: var(--green); border-color: var(--white); }
+    .btn-plan { width: 100%; justify-content: center; padding: 14px 24px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--navy); background: transparent; color: var(--navy); transition: all 0.18s; text-align: center; display: block; font-family: var(--font-sans); }
+    .btn-plan:hover { background: var(--navy-light); }
+    .pricing-card.featured .btn-plan { background: var(--white); color: var(--navy); border-color: var(--white); }
     .pricing-card.featured .btn-plan:hover { background: var(--cream); }
     .pricing-note { text-align: center; font-size: 13px; color: var(--muted); margin-top: 32px; }
-    .about { background: var(--cream-dark); border-top: 1px solid var(--border); padding: 100px 0; }
-    .about-inner { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; }
-    .founder-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px; box-shadow: var(--shadow-md); text-align: center; }
-    .founder-avatar { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, var(--green-light), var(--gold-light)); display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 32px; font-weight: 400; color: var(--green); margin: 0 auto 16px; border: 2px solid var(--border); }
-    .founder-name { font-family: var(--font-serif); font-size: 20px; font-weight: 400; color: var(--charcoal); margin-bottom: 4px; }
-    .founder-title { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
-    .founder-contact { display: flex; flex-direction: column; gap: 8px; }
-    .founder-contact a { font-size: 14px; color: var(--green); font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 6px; transition: color 0.15s; }
-    .founder-contact a:hover { color: var(--gold); }
-    .about-right h2 { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
-    .about-right h2 em { font-style: italic; color: var(--green); }
-    .about-right p { font-size: 16px; color: var(--muted); margin-bottom: 16px; line-height: 1.75; }
-    .about-right p strong { color: var(--charcoal); font-weight: 600; }
+
+    /* WAITLIST */
     .waitlist { padding: 100px 0; text-align: center; }
-    .waitlist-inner { max-width: 600px; margin: 0 auto; }
-    .waitlist h2 { font-family: var(--font-serif); font-size: clamp(34px, 5vw, 56px); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 18px; }
+    .waitlist-inner { max-width: 580px; margin: 0 auto; }
+    .waitlist h2 { font-family: var(--font-serif); font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 18px; }
     .waitlist h2 em { font-style: italic; color: var(--gold); }
-    .waitlist p { font-size: 17px; color: var(--muted); margin-bottom: 44px; line-height: 1.7; }
+    .waitlist p { font-size: 17px; color: var(--muted); margin-bottom: 40px; line-height: 1.75; }
     .waitlist-form { display: flex; gap: 12px; max-width: 460px; margin: 0 auto 16px; }
     .waitlist-form input { flex: 1; padding: 15px 20px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 15px; background: var(--white); color: var(--charcoal); outline: none; transition: border-color 0.15s; }
-    .waitlist-form input:focus { border-color: var(--green); }
+    .waitlist-form input:focus { border-color: var(--navy); }
     .waitlist-form input::placeholder { color: var(--muted); opacity: 0.7; }
     .waitlist-note { font-size: 12px; color: var(--muted); }
-    .waitlist-success { display: none; background: var(--green-light); border: 1px solid var(--green); border-radius: var(--radius-md); padding: 20px 28px; font-size: 15px; color: var(--green); font-weight: 500; max-width: 460px; margin: 0 auto; }
+    .waitlist-success { display: none; background: var(--navy-light); border: 1px solid var(--navy); border-radius: var(--radius-md); padding: 20px 28px; font-size: 15px; color: var(--navy); font-weight: 500; max-width: 460px; margin: 0 auto; }
+
+    /* DEMO */
     #demo { background: var(--cream-dark); border-top: 1px solid var(--border); padding: 100px 0; }
     .demo-inner { max-width: 680px; margin: 0 auto; }
     .demo-header { text-align: center; margin-bottom: 48px; }
-    .demo-header h2 { font-family: var(--font-serif); font-size: clamp(30px, 4vw, 44px); font-weight: 400; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 12px; }
-    .demo-header h2 em { font-style: italic; color: var(--green); }
+    .demo-header h2 { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .demo-header h2 em { font-style: italic; color: var(--navy); }
     .demo-header p { font-size: 16px; color: var(--muted); }
-    .demo-form { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 44px; box-shadow: var(--shadow-md); }
+    .demo-form-box { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 44px; box-shadow: var(--shadow-md); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group.full { grid-column: 1 / -1; }
     .form-group label { font-size: 13px; font-weight: 600; color: var(--charcoal); letter-spacing: 0.02em; }
     .form-group input, .form-group select { padding: 13px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-sans); font-size: 15px; color: var(--charcoal); background: var(--cream); outline: none; transition: border-color 0.15s; -webkit-appearance: none; }
-    .form-group input:focus, .form-group select:focus { border-color: var(--green); background: var(--white); }
+    .form-group input:focus, .form-group select:focus { border-color: var(--navy); background: var(--white); }
     .form-submit { width: 100%; margin-top: 24px; justify-content: center; font-size: 16px; padding: 16px 28px; }
     .form-legal { text-align: center; margin-top: 14px; font-size: 12px; color: var(--muted); }
     .demo-success { display: none; text-align: center; padding: 40px; }
     .demo-success-icon { font-size: 48px; margin-bottom: 16px; }
-    .demo-success h3 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; color: var(--green); margin-bottom: 10px; }
+    .demo-success h3 { font-family: var(--font-serif); font-size: 28px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
     .demo-success p { font-size: 15px; color: var(--muted); }
-    footer { background: var(--charcoal); color: rgba(255,255,255,0.55); padding: 40px 0; }
+
+    /* FOOTER */
+    footer { background: var(--charcoal); color: rgba(255,255,255,0.5); padding: 40px 0; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-    .footer-logo { font-family: var(--font-serif); font-size: 18px; font-weight: 400; color: var(--white); }
+    .footer-logo { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--white); }
     .footer-logo span { color: var(--gold); }
     .footer-links { display: flex; gap: 24px; list-style: none; }
     .footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); transition: color 0.15s; }
     .footer-links a:hover { color: var(--white); }
-    .footer-copy { font-size: 12px; width: 100%; text-align: center; margin-top: 8px; color: rgba(255,255,255,0.3); }
+    .footer-copy { font-size: 12px; width: 100%; text-align: center; margin-top: 8px; color: rgba(255,255,255,0.28); }
+
+    /* RESPONSIVE */
     @media (max-width: 768px) {
       .nav-links { display: none; }
+      .hero { padding: 72px 0 56px; }
       .problem-inner { grid-template-columns: 1fr; gap: 48px; }
-      .modules-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
       .about-inner { grid-template-columns: 1fr; gap: 48px; }
       .stats-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -183,194 +237,312 @@
       .form-row { grid-template-columns: 1fr; }
       .footer-inner { justify-content: center; text-align: center; }
       .footer-links { justify-content: center; }
-      .demo-form { padding: 28px 24px; }
+      .demo-form-box { padding: 28px 20px; }
+      .hub-tabs { gap: 6px; }
+      .hub-tab { padding: 8px 14px; font-size: 12px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- NAV -->
   <nav>
     <div class="container">
       <div class="nav-inner">
         <a href="#" class="nav-logo">Savanti<span>.</span></a>
         <ul class="nav-links">
           <li><a href="#problem">The Problem</a></li>
-          <li><a href="#platform">Platform</a></li>
-          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#hub">Drug Prices</a></li>
           <li><a href="#about">About</a></li>
+          <li><a href="#waitlist">Early Access</a></li>
         </ul>
-        <div class="nav-cta">
-          <a href="#demo" class="btn btn-primary">Request Demo</a>
+        <div>
+          <a href="#waitlist" class="btn btn-gold">Join Waitlist</a>
         </div>
       </div>
     </div>
   </nav>
 
+  <!-- HERO -->
   <section class="hero">
     <div class="container">
       <div class="hero-inner">
-        <div class="label">Early Access — Now Open</div>
-        <h1>Pharmacy care,<br /><em>finally built</em> for<br />the pharmacist.</h1>
-        <p class="hero-sub">Savanti gives clinical pharmacists real-time adherence intelligence, formulary insight, and patient assistance — all in one place, at the point of care.</p>
+        <div class="label">Now in Development</div>
+        <h1>Every discount for your prescription.<br /><em>All in one place.</em></h1>
+        <p class="hero-sub">
+          GoodRx, ScriptCycle, manufacturer cards, TrumpRx — Savanti shows you every option for any drug, in real time, so you never overpay at the counter again.
+        </p>
         <div class="hero-actions">
-          <a href="#waitlist" class="btn btn-gold">Join the Waitlist</a>
-          <a href="#demo" class="btn btn-outline">Request a Demo</a>
+          <a href="#hub" class="btn btn-primary">See Drug Prices Now</a>
+          <a href="#waitlist" class="btn btn-outline">Join the Waitlist</a>
         </div>
-        <p class="hero-note"><span>30-day pilot</span> · No credit card required · Built by a pharmacist</p>
+        <p class="hero-note"><span>Free for patients.</span> · No insurance required · Built by a pharmacist</p>
       </div>
     </div>
   </section>
 
+  <!-- STATS -->
   <div class="stats-strip">
     <div class="container">
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-number">+12%</div>
-          <div class="stat-label">PDC improvement in pilot cohort</div>
+          <div class="stat-number">30%</div>
+          <div class="stat-label">of prescriptions are never filled<br />due to cost</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">$3,400</div>
-          <div class="stat-label">Annual savings per adherent patient</div>
+          <div class="stat-number">$1,200</div>
+          <div class="stat-label">average annual savings per patient<br />using discount cards</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">60s</div>
-          <div class="stat-label">Average adherence review time</div>
+          <div class="stat-number">80%</div>
+          <div class="stat-label">of patients don't know about<br />manufacturer assistance programs</div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- PROBLEM -->
   <section class="problem" id="problem">
     <div class="container">
       <div class="problem-inner">
         <div class="problem-text">
           <div class="label">The Problem</div>
-          <h2>The system is failing patients at the <em>exact moment</em> they need it most.</h2>
-          <p>Pharmacists care deeply. But the tools haven't kept up. Patients fall off therapy quietly, costs spiral, and HEDIS scores slip — while your team is stuck in a workflow built for a different era.</p>
-          <p>This isn't a knowledge problem. It's a tools problem.</p>
+          <h2>Patients are walking away from medications they <em>need</em> — every single day.</h2>
+          <p>
+            Nobody sees this more clearly than the pharmacist at the counter. A patient hands over their prescription, the price comes up, and they go quiet. Then they say they'll come back later. They don't.
+          </p>
+          <p>
+            The discounts exist. The assistance programs are out there. But they're scattered across dozens of websites, buried in fine print, and impossible to find in the 90 seconds someone is standing at a pharmacy window.
+          </p>
+          <p>
+            Savanti puts every discount card, coupon, and manufacturer program in one place — visible in seconds, for any drug.
+          </p>
         </div>
         <div class="problem-cards">
           <div class="problem-card">
-            <div class="problem-card-title">Patients go undetected until it's too late</div>
-            <div class="problem-card-body">By the time a gap shows in your spreadsheet, the patient has already missed days — and those days count against your PDC score permanently.</div>
+            <div class="problem-card-title">Discount cards are everywhere — and invisible</div>
+            <div class="problem-card-body">GoodRx, ScriptCycle, SingleCare, TrumpRx, and dozens of manufacturer programs all offer real savings. But patients have to find them one by one, on their own, under pressure.</div>
           </div>
           <div class="problem-card">
-            <div class="problem-card-title">Medication cost drives non-adherence</div>
-            <div class="problem-card-body">Millions of patients walk away from prescriptions they can't afford. Finding assistance programs takes hours — time you don't have at the counter.</div>
+            <div class="problem-card-title">Pharmacists can't always catch every option</div>
+            <div class="problem-card-body">A pharmacist filling 400 prescriptions a day can't manually search every coupon source for every patient. They want to help — the workflow just doesn't allow it.</div>
           </div>
           <div class="problem-card">
-            <div class="problem-card-title">Star ratings are at stake</div>
-            <div class="problem-card-body">HEDIS adherence measures for diabetes, hypertension, and cholesterol directly impact your plan's Star Rating — and your bottom line.</div>
+            <div class="problem-card-title">Skipping medication has real consequences</div>
+            <div class="problem-card-body">When patients can't afford blood pressure, diabetes, or cholesterol medications, they don't just skip a pill — they end up in the ER. This is preventable.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="building" id="platform">
+  <!-- DRUG PRICING HUB -->
+  <section class="hub-section" id="hub">
     <div class="container">
-      <div class="building-header">
-        <div class="label">The Platform</div>
-        <h2>Built to close the gap,<br /><em>before</em> it opens.</h2>
-        <p>Six clinical tools working together — so you can see risk, act fast, and keep patients on therapy.</p>
+      <div class="hub-header">
+        <div class="label">Live Drug Pricing Hub</div>
+        <h2>See every discount, <em>right now.</em></h2>
+        <p>Top medications across six categories — with every discount card and assistance program shown side by side. Best price highlighted automatically.</p>
       </div>
-      <div class="modules-grid">
-        <div class="module-card">
-          <div class="module-icon">📊</div>
-          <div class="module-title">Real-Time PDC & MPR Scoring</div>
-          <div class="module-body">Live proportion of days covered and medication possession ratio — updated at every refill event, not next quarter.</div>
-          <span class="module-tag">Adherence</span>
+
+      <div class="hub-tabs">
+        <button class="hub-tab active" onclick="switchHub('bp', this)">❤️ Blood Pressure</button>
+        <button class="hub-tab" onclick="switchHub('dm', this)">🩸 Diabetes</button>
+        <button class="hub-tab" onclick="switchHub('hc', this)">🧬 Cholesterol</button>
+        <button class="hub-tab" onclick="switchHub('ab', this)">💊 Antibiotics</button>
+        <button class="hub-tab" onclick="switchHub('glp1', this)">💉 GLP-1</button>
+        <button class="hub-tab" onclick="switchHub('hl', this)">🧴 Hair Loss</button>
+      </div>
+
+      <!-- Blood Pressure -->
+      <div class="hub-panel active" id="hub-bp">
+        <div class="drug-table-wrap">
+          <table class="drug-table">
+            <thead>
+              <tr>
+                <th>Medication</th>
+                <th>Retail<br /><span class="col-header-badge">No Discount</span></th>
+                <th>GoodRx<br /><span class="col-header-badge">goodrx.com</span></th>
+                <th>ScriptCycle<br /><span class="col-header-badge">scriptcycle.com</span></th>
+                <th>SingleCare<br /><span class="col-header-badge">singlecare.com</span></th>
+                <th>TrumpRx<br /><span class="col-header-badge">Mfr. Card / PAP</span></th>
+                <th>Best Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="drug-name">Lisinopril 10mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$35</span></td><td class="price-val">$4</td><td class="price-val">$3</td><td class="price-val">$5</td><td class="price-val">$2</td><td><span class="price-best">$2 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Amlodipine 5mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$30</span></td><td class="price-val">$5</td><td class="price-val">$4</td><td class="price-val">$6</td><td class="price-val">$2</td><td><span class="price-best">$2 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Metoprolol Succinate 50mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$45</span></td><td class="price-val">$8</td><td class="price-val">$7</td><td class="price-val">$9</td><td class="price-val">$3</td><td><span class="price-best">$3 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Losartan 50mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$40</span></td><td class="price-val">$8</td><td class="price-val">$7</td><td class="price-val">$9</td><td class="price-val">$3</td><td><span class="price-best">$3 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Hydrochlorothiazide 25mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$25</span></td><td class="price-val">$4</td><td class="price-val">$3</td><td class="price-val">$5</td><td class="price-val">$2</td><td><span class="price-best">$2 — TrumpRx</span></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="module-card">
-          <div class="module-icon">⏰</div>
-          <div class="module-title">Proactive Refill Alerts</div>
-          <div class="module-body">Catch at-risk patients before they run out — with enough lead time to actually do something about it.</div>
-          <span class="module-tag">Outreach</span>
+      </div>
+
+      <!-- Diabetes -->
+      <div class="hub-panel" id="hub-dm">
+        <div class="drug-table-wrap">
+          <table class="drug-table">
+            <thead>
+              <tr>
+                <th>Medication</th>
+                <th>Retail<br /><span class="col-header-badge">No Discount</span></th>
+                <th>GoodRx<br /><span class="col-header-badge">goodrx.com</span></th>
+                <th>ScriptCycle<br /><span class="col-header-badge">scriptcycle.com</span></th>
+                <th>SingleCare<br /><span class="col-header-badge">singlecare.com</span></th>
+                <th>Mfr. Card / PAP<br /><span class="col-header-badge">Manufacturer Program</span></th>
+                <th>Best Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="drug-name">Metformin 500mg</div><div class="drug-qty">60 tablets</div></td><td><span class="price-retail">$30</span></td><td class="price-val">$5</td><td class="price-val">$4</td><td class="price-val">$6</td><td><span class="price-na">—</span></td><td><span class="price-best">$4 — ScriptCycle</span></td></tr>
+              <tr><td><div class="drug-name">Jardiance 10mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$640</span></td><td class="price-val">$67</td><td class="price-val">$60</td><td class="price-val">$65</td><td><span class="price-val">$0*</span><span class="mfr-note">BI Cares PAP*</span></td><td><span class="price-best">$0 — BI Cares PAP*</span></td></tr>
+              <tr><td><div class="drug-name">Glipizide 5mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$25</span></td><td class="price-val">$4</td><td class="price-val">$3</td><td class="price-val">$5</td><td><span class="price-na">—</span></td><td><span class="price-best">$3 — ScriptCycle</span></td></tr>
+              <tr><td><div class="drug-name">Januvia 100mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$640</span></td><td class="price-val">$380</td><td class="price-val">$360</td><td class="price-val">$370</td><td><span class="price-val">$0*</span><span class="mfr-note">Merck PAP*</span></td><td><span class="price-best">$0 — Merck PAP*</span></td></tr>
+              <tr><td><div class="drug-name">Ozempic 0.5mg</div><div class="drug-qty">1 pen (monthly)</div></td><td><span class="price-retail">$935</span></td><td class="price-val">$847</td><td class="price-val">$820</td><td class="price-val">$830</td><td><span class="price-val">$25*</span><span class="mfr-note">Novo Savings Card*</span></td><td><span class="price-best">$25 — Novo Card*</span></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="module-card">
-          <div class="module-icon">💊</div>
-          <div class="module-title">Live Formulary & Pricing</div>
-          <div class="module-body">Side-by-side cost comparisons across insurance tiers, generics, coupons, and copay programs — instantly.</div>
-          <span class="module-tag">Cost</span>
+      </div>
+
+      <!-- Cholesterol -->
+      <div class="hub-panel" id="hub-hc">
+        <div class="drug-table-wrap">
+          <table class="drug-table">
+            <thead>
+              <tr>
+                <th>Medication</th>
+                <th>Retail<br /><span class="col-header-badge">No Discount</span></th>
+                <th>GoodRx<br /><span class="col-header-badge">goodrx.com</span></th>
+                <th>ScriptCycle<br /><span class="col-header-badge">scriptcycle.com</span></th>
+                <th>SingleCare<br /><span class="col-header-badge">singlecare.com</span></th>
+                <th>TrumpRx<br /><span class="col-header-badge">Est. Program Price</span></th>
+                <th>Best Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="drug-name">Atorvastatin 20mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$50</span></td><td class="price-val">$6</td><td class="price-val">$5</td><td class="price-val">$7</td><td class="price-val">$2</td><td><span class="price-best">$2 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Rosuvastatin 10mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$65</span></td><td class="price-val">$12</td><td class="price-val">$10</td><td class="price-val">$13</td><td class="price-val">$4</td><td><span class="price-best">$4 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Simvastatin 20mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$35</span></td><td class="price-val">$5</td><td class="price-val">$4</td><td class="price-val">$6</td><td class="price-val">$2</td><td><span class="price-best">$2 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Pravastatin 40mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$45</span></td><td class="price-val">$10</td><td class="price-val">$9</td><td class="price-val">$11</td><td class="price-val">$3</td><td><span class="price-best">$3 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Ezetimibe 10mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$85</span></td><td class="price-val">$18</td><td class="price-val">$15</td><td class="price-val">$19</td><td class="price-val">$7</td><td><span class="price-best">$7 — TrumpRx</span></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="module-card">
-          <div class="module-icon">🤝</div>
-          <div class="module-title">Automatic PAP Detection</div>
-          <div class="module-body">Savanti scans 3,000+ patient assistance programs and matches each patient automatically. No manual searching.</div>
-          <span class="module-tag">Access</span>
+      </div>
+
+      <!-- Antibiotics -->
+      <div class="hub-panel" id="hub-ab">
+        <div class="drug-table-wrap">
+          <table class="drug-table">
+            <thead>
+              <tr>
+                <th>Medication</th>
+                <th>Retail<br /><span class="col-header-badge">No Discount</span></th>
+                <th>GoodRx<br /><span class="col-header-badge">goodrx.com</span></th>
+                <th>ScriptCycle<br /><span class="col-header-badge">scriptcycle.com</span></th>
+                <th>SingleCare<br /><span class="col-header-badge">singlecare.com</span></th>
+                <th>TrumpRx<br /><span class="col-header-badge">Est. Program Price</span></th>
+                <th>Best Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="drug-name">Amoxicillin 500mg</div><div class="drug-qty">21 capsules</div></td><td><span class="price-retail">$20</span></td><td class="price-val">$7</td><td class="price-val">$6</td><td class="price-val">$8</td><td class="price-val">$4</td><td><span class="price-best">$4 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Azithromycin 250mg</div><div class="drug-qty">6 tablets (Z-pack)</div></td><td><span class="price-retail">$35</span></td><td class="price-val">$12</td><td class="price-val">$10</td><td class="price-val">$13</td><td class="price-val">$6</td><td><span class="price-best">$6 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Doxycycline 100mg</div><div class="drug-qty">14 capsules</div></td><td><span class="price-retail">$30</span></td><td class="price-val">$10</td><td class="price-val">$9</td><td class="price-val">$11</td><td class="price-val">$5</td><td><span class="price-best">$5 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Ciprofloxacin 500mg</div><div class="drug-qty">14 tablets</div></td><td><span class="price-retail">$35</span></td><td class="price-val">$11</td><td class="price-val">$10</td><td class="price-val">$12</td><td class="price-val">$5</td><td><span class="price-best">$5 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">TMP/SMX DS</div><div class="drug-qty">14 tablets</div></td><td><span class="price-retail">$20</span></td><td class="price-val">$8</td><td class="price-val">$7</td><td class="price-val">$9</td><td class="price-val">$4</td><td><span class="price-best">$4 — TrumpRx</span></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="module-card">
-          <div class="module-icon">💳</div>
-          <div class="module-title">Pharmacist Discount Hub</div>
-          <div class="module-body">Curated discount cards and coupon programs surfaced at the right moment — not buried in a browser tab.</div>
-          <span class="module-tag">Savings</span>
+      </div>
+
+      <!-- GLP-1 -->
+      <div class="hub-panel" id="hub-glp1">
+        <div class="drug-table-wrap">
+          <table class="drug-table">
+            <thead>
+              <tr>
+                <th>Medication</th>
+                <th>Retail<br /><span class="col-header-badge">No Discount</span></th>
+                <th>GoodRx<br /><span class="col-header-badge">goodrx.com</span></th>
+                <th>ScriptCycle<br /><span class="col-header-badge">scriptcycle.com</span></th>
+                <th>SingleCare<br /><span class="col-header-badge">singlecare.com</span></th>
+                <th>Mfr. Card / PAP<br /><span class="col-header-badge">Manufacturer Program</span></th>
+                <th>Best Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="drug-name">Ozempic 0.5mg</div><div class="drug-qty">1 pen (monthly)</div></td><td><span class="price-retail">$935</span></td><td class="price-val">$847</td><td class="price-val">$820</td><td class="price-val">$830</td><td><span class="price-val">$25*</span><span class="mfr-note">Novo Savings Card*</span></td><td><span class="price-best">$25 — Novo Card*</span></td></tr>
+              <tr><td><div class="drug-name">Wegovy 0.25mg</div><div class="drug-qty">4 pens (monthly)</div></td><td><span class="price-retail">$1,349</span></td><td class="price-val">$1,098</td><td class="price-val">$1,050</td><td class="price-val">$1,080</td><td><span class="price-val">$25*</span><span class="mfr-note">Novo Savings Card*</span></td><td><span class="price-best">$25 — Novo Card*</span></td></tr>
+              <tr><td><div class="drug-name">Mounjaro 2.5mg</div><div class="drug-qty">4 pens (monthly)</div></td><td><span class="price-retail">$1,069</span></td><td class="price-val">$881</td><td class="price-val">$850</td><td class="price-val">$870</td><td><span class="price-val">$25*</span><span class="mfr-note">Lilly Savings Card*</span></td><td><span class="price-best">$25 — Lilly Card*</span></td></tr>
+              <tr><td><div class="drug-name">Trulicity 0.75mg</div><div class="drug-qty">4 pens (monthly)</div></td><td><span class="price-retail">$913</span></td><td class="price-val">$820</td><td class="price-val">$790</td><td class="price-val">$800</td><td><span class="price-val">$0*</span><span class="mfr-note">Lilly Insulin Value Program*</span></td><td><span class="price-best">$0 — Lilly PAP*</span></td></tr>
+              <tr><td><div class="drug-name">Victoza 1.2mg</div><div class="drug-qty">3 pens (monthly)</div></td><td><span class="price-retail">$822</span></td><td class="price-val">$698</td><td class="price-val">$670</td><td class="price-val">$685</td><td><span class="price-val">$25*</span><span class="mfr-note">Novo Savings Card*</span></td><td><span class="price-best">$25 — Novo Card*</span></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="module-card">
-          <div class="module-icon">❤️</div>
-          <div class="module-title">GDMT Clinical Decision Support</div>
-          <div class="module-body">Guideline-directed alerts for HF, diabetes, and CAD — so patients with the highest stakes stay on optimal therapy.</div>
-          <span class="module-tag">Clinical</span>
+      </div>
+
+      <!-- Hair Loss -->
+      <div class="hub-panel" id="hub-hl">
+        <div class="drug-table-wrap">
+          <table class="drug-table">
+            <thead>
+              <tr>
+                <th>Medication</th>
+                <th>Retail<br /><span class="col-header-badge">No Discount</span></th>
+                <th>GoodRx<br /><span class="col-header-badge">goodrx.com</span></th>
+                <th>ScriptCycle<br /><span class="col-header-badge">scriptcycle.com</span></th>
+                <th>SingleCare<br /><span class="col-header-badge">singlecare.com</span></th>
+                <th>TrumpRx<br /><span class="col-header-badge">Est. Program Price</span></th>
+                <th>Best Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="drug-name">Finasteride 1mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$45</span></td><td class="price-val">$12</td><td class="price-val">$10</td><td class="price-val">$13</td><td class="price-val">$5</td><td><span class="price-best">$5 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Minoxidil 5% Solution</div><div class="drug-qty">60mL bottle</div></td><td><span class="price-retail">$25</span></td><td class="price-val">$8</td><td class="price-val">$7</td><td class="price-val">$9</td><td class="price-val">$4</td><td><span class="price-best">$4 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Dutasteride 0.5mg</div><div class="drug-qty">30 capsules</div></td><td><span class="price-retail">$90</span></td><td class="price-val">$22</td><td class="price-val">$18</td><td class="price-val">$24</td><td class="price-val">$9</td><td><span class="price-best">$9 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Spironolactone 50mg</div><div class="drug-qty">30 tablets</div></td><td><span class="price-retail">$35</span></td><td class="price-val">$9</td><td class="price-val">$8</td><td class="price-val">$10</td><td class="price-val">$4</td><td><span class="price-best">$4 — TrumpRx</span></td></tr>
+              <tr><td><div class="drug-name">Ketoconazole 2% Shampoo</div><div class="drug-qty">120mL</div></td><td><span class="price-retail">$40</span></td><td class="price-val">$18</td><td class="price-val">$15</td><td class="price-val">$20</td><td class="price-val">$8</td><td><span class="price-best">$8 — TrumpRx</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="hub-disclaimer">* Manufacturer cards and PAP programs have eligibility requirements (income limits, insurance status, etc.). Prices shown are representative estimates — actual prices vary by pharmacy location and eligibility. Always verify at point of purchase. TrumpRx pricing reflects projected program estimates.</p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how">
+    <div class="container">
+      <div class="how-header">
+        <div class="label">How It Works</div>
+        <h2>Three steps to your lowest price.</h2>
+        <p>No account needed. No insurance required. Just real savings, instantly.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-title">Search your medication</div>
+          <div class="step-body">Type in your drug name and dosage. Savanti instantly pulls up every available discount card, coupon, and manufacturer program.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-title">Compare all your options</div>
+          <div class="step-body">See GoodRx, ScriptCycle, SingleCare, TrumpRx, and manufacturer assistance programs side by side. The best price is flagged automatically.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-title">Show it at the counter</div>
+          <div class="step-body">Show the discount card or coupon to your pharmacist. That's it. No account, no signup, no hassle. Just the lowest price.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="pricing" id="pricing">
-    <div class="container">
-      <div class="pricing-header">
-        <div class="label">Pricing</div>
-        <h2>Simple, transparent plans.</h2>
-        <p>No hidden fees. Cancel anytime. All plans include onboarding and PharmD-reviewed clinical content.</p>
-      </div>
-      <div class="pricing-grid">
-        <div class="pricing-card">
-          <div class="plan-name">Pharmacy Starter</div>
-          <div class="plan-tagline">For independent pharmacies ready to start.</div>
-          <div class="plan-price"><span class="amount">$299</span><span class="period">/location/mo</span></div>
-          <div class="plan-divider"></div>
-          <ul class="plan-features">
-            <li>Up to 50 patients</li>
-            <li>PDC & MPR scoring</li>
-            <li>Refill alerts</li>
-            <li>Pharmacist discount hub</li>
-            <li>Email support</li>
-          </ul>
-          <a href="#demo" class="btn-plan">Get Started</a>
-        </div>
-        <div class="pricing-card featured">
-          <div class="pricing-badge">Most Popular</div>
-          <div class="plan-name">Health System Clinical</div>
-          <div class="plan-tagline">For teams that need the full clinical picture.</div>
-          <div class="plan-price"><span class="amount">$499</span><span class="period">/location/mo</span></div>
-          <div class="plan-divider"></div>
-          <ul class="plan-features">
-            <li>Unlimited patient roster</li>
-            <li>Full formulary intelligence</li>
-            <li>Automatic PAP detection</li>
-            <li>GDMT clinical decision support</li>
-            <li>Priority support</li>
-          </ul>
-          <a href="#demo" class="btn-plan">Get Started</a>
-        </div>
-        <div class="pricing-card">
-          <div class="plan-name">PBM Enterprise</div>
-          <div class="plan-tagline">Custom pricing for plans and health systems.</div>
-          <div class="plan-price"><span class="amount" style="font-size:32px;">Custom</span></div>
-          <div class="plan-divider"></div>
-          <ul class="plan-features">
-            <li>White-label options</li>
-            <li>API & EHR integrations</li>
-            <li>Custom HEDIS reporting</li>
-            <li>Dedicated customer success</li>
-            <li>SLA guarantees</li>
-          </ul>
-          <a href="#demo" class="btn-plan">Contact Sales</a>
-        </div>
-      </div>
-      <p class="pricing-note">All plans include a <strong>30-day free pilot</strong> — no credit card required.</p>
-    </div>
-  </section>
-
+  <!-- ABOUT -->
   <section class="about" id="about">
     <div class="container">
       <div class="about-inner">
@@ -386,44 +558,52 @@
           </div>
         </div>
         <div class="about-right">
-          <div class="label">Our Story</div>
-          <h2>Built from<br /><em>the counter up.</em></h2>
-          <p>Before pharmacy school, Mohamed spent five years working the retail pharmacy counter — watching patients walk away from prescriptions they couldn't afford, fielding calls from people lost in a system that wasn't built to help them.</p>
-          <p>Those years made one thing clear: <strong>the gap between clinical intent and patient outcome isn't a knowledge problem — it's a tools problem.</strong></p>
-          <p>Now in pharmacy school, Mohamed is combining that ground-level experience with clinical training in pharmacokinetics, therapeutics, and HEDIS metrics — alongside a growing foundation in healthcare business strategy. Savanti is where all of it converges.</p>
-          <a href="#demo" class="btn btn-outline" style="margin-top: 16px;">Free Consultation →</a>
+          <div class="label">Why I Built This</div>
+          <h2>I watched it happen at the counter, <em>every day.</em></h2>
+          <p>
+            Before pharmacy school, I spent five years working the retail pharmacy counter. I watched patients go quiet when the price came up. I watched them say "I'll come back" — knowing they wouldn't. I watched people choose between their medication and their groceries.
+          </p>
+          <p>
+            <strong>The discounts were always there. The problem was nobody could find them fast enough.</strong> GoodRx, manufacturer programs, PAP assistance — they exist. But scattered, buried, and impossible to navigate in real time.
+          </p>
+          <p>
+            Savanti is built to change that. A single place where any patient can see every option for their prescription — before they ever reach the counter.
+          </p>
+          <a href="#waitlist" class="btn btn-outline" style="margin-top:16px;">Join the Waitlist →</a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- WAITLIST -->
   <section class="waitlist" id="waitlist">
     <div class="container">
       <div class="waitlist-inner">
         <div class="label">Early Access</div>
-        <h2>Be first in the<br /><em>door.</em></h2>
-        <p>Early members get 3 months free and a dedicated onboarding call. Drop your email and we'll reach out as soon as your spot is ready.</p>
+        <h2>Be first to know<br />when we <em>launch.</em></h2>
+        <p>Early access members get free lifetime use and a direct line to the founder. We're building this for patients — drop your email and we'll be in touch.</p>
         <form class="waitlist-form" id="waitlistForm" onsubmit="handleWaitlist(event)">
           <input type="email" placeholder="Your email address" required />
           <button type="submit" class="btn btn-gold">Join Waitlist</button>
         </form>
         <div class="waitlist-success" id="waitlistSuccess">
-          🎉 You're on the list! We'll be in touch soon. Questions? Call <a href="tel:4045285461" style="color:var(--green);font-weight:600;">(404) 528-5461</a>
+          🎉 You're on the list! Questions? Call <a href="tel:4045285461" style="color:var(--navy);font-weight:600;">(404) 528-5461</a>
         </div>
-        <p class="waitlist-note">🔒 No spam. Unsubscribe anytime.</p>
+        <p class="waitlist-note">🔒 No spam. Unsubscribe anytime. Free for patients, always.</p>
       </div>
     </div>
   </section>
 
+  <!-- DEMO REQUEST -->
   <section id="demo">
     <div class="container">
       <div class="demo-inner">
         <div class="demo-header">
-          <div class="label">Get in Touch</div>
-          <h2>Request a <em>demo.</em></h2>
-          <p>Tell us about your organization and we'll reach out within one business day to schedule your walkthrough.</p>
+          <div class="label">Pharmacies & Health Systems</div>
+          <h2>Bring Savanti to <em>your patients.</em></h2>
+          <p>Want to integrate Savanti into your pharmacy workflow? We're partnering with pharmacies and health systems. Reach out and we'll be in touch within one business day.</p>
         </div>
-        <div class="demo-form" id="demoFormWrap">
+        <div class="demo-form-box" id="demoFormWrap">
           <form id="demoForm" onsubmit="handleDemo(event)">
             <div class="form-row">
               <div class="form-group">
@@ -464,19 +644,20 @@
                 <input type="email" placeholder="you@pharmacy.com" required />
               </div>
             </div>
-            <button type="submit" class="btn btn-primary form-submit">Request My Demo →</button>
+            <button type="submit" class="btn btn-primary form-submit">Get in Touch →</button>
             <p class="form-legal">No commitment required. We'll reach out within 1 business day.</p>
           </form>
           <div class="demo-success" id="demoSuccess">
             <div class="demo-success-icon">✅</div>
-            <h3>You're on the list.</h3>
-            <p>We received your request and will reach out within one business day. In the meantime, feel free to reach Mohamed directly at <a href="tel:4045285461" style="color:var(--green);font-weight:600;">(404) 528-5461</a>.</p>
+            <h3>Message received.</h3>
+            <p>We'll be in touch within one business day. In the meantime, reach Mohamed directly at <a href="tel:4045285461" style="color:var(--navy);font-weight:600;">(404) 528-5461</a>.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-inner">
@@ -484,14 +665,20 @@
         <ul class="footer-links">
           <li><a href="tel:4045285461">(404) 528-5461</a></li>
           <li><a href="mailto:savantihealth@outlook.com">savantihealth@outlook.com</a></li>
-          <li><a href="#demo">Request Demo</a></li>
+          <li><a href="#waitlist">Early Access</a></li>
         </ul>
-        <div class="footer-copy">Platform in development. Metrics reflect IRB-approved pilot data. Not yet FDA-cleared. · © 2026 Savanti Health, Inc. · Built by pharmacists, for pharmacists.</div>
+        <div class="footer-copy">Platform in development. Prices shown are representative estimates and may vary by pharmacy. Not financial or medical advice. · © 2026 Savanti Health, Inc.</div>
       </div>
     </div>
   </footer>
 
   <script>
+    function switchHub(tab, btn) {
+      document.querySelectorAll('.hub-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.hub-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('hub-' + tab).classList.add('active');
+    }
     function handleWaitlist(e) {
       e.preventDefault();
       document.getElementById('waitlistForm').style.display = 'none';
@@ -502,12 +689,12 @@
       document.getElementById('demoForm').style.display = 'none';
       document.getElementById('demoSuccess').style.display = 'block';
     }
-    const sections = document.querySelectorAll('section[id], div[id="demo"]');
+    const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
     window.addEventListener('scroll', () => {
       let current = '';
       sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-      navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--green)' : ''; });
+      navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--navy)' : ''; });
     });
   </script>
 
