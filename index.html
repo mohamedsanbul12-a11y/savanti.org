@@ -128,8 +128,7 @@
       background: radial-gradient(circle, rgba(122,36,56,0.10) 0%, transparent 65%);
       border-radius: 50%; pointer-events: none;
     }
-    .hero-grid { position: relative; display: grid; grid-template-columns: 1fr 320px; gap: 40px; align-items: center; }
-    .hero-inner { position: relative; max-width: 620px; }
+    .hero-inner { position: relative; z-index: 1; max-width: 620px; }
     .hero h1 {
       font-family: var(--font-serif);
       font-size: clamp(44px, 6vw, 72px);
@@ -137,29 +136,29 @@
       letter-spacing: -0.02em;
       color: var(--ink); margin-bottom: 24px;
     }
-    .hero h1 em { font-style: italic; color: var(--ink); }
+    .hero h1 em { font-style: normal; color: var(--ink); }
     .hero-sub { font-size: 18px; color: var(--text-muted); max-width: 580px; margin-bottom: 44px; line-height: 1.7; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
     .hero-note { font-size: 13px; color: var(--text-dim); margin-top: 20px; }
     .hero-note span { color: var(--brass-hover); font-weight: 600; }
 
-    /* HERO VISUAL — floating pills & tablets */
-    .hero-visual { position: relative; height: 340px; display: flex; align-items: center; justify-content: center; }
-    .hero-visual svg { overflow: visible; }
+    /* HERO PILLS — floating throughout the whole hero */
+    .hero-pills { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .hero-pill { position: absolute; }
     .floaty {
+      display: block;
       transform-origin: center;
       animation: pill-float 4.4s ease-in-out infinite;
     }
     @keyframes pill-float {
       0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-13px); }
+      50%      { transform: translateY(-14px); }
     }
     @media (prefers-reduced-motion: reduce) {
       .floaty { animation: none; }
     }
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero-visual { display: none; }
+    @media (max-width: 640px) {
+      .hero-pill { display: none; }
     }
 
     /* EKG STRIP */
@@ -394,82 +393,63 @@
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-pills" aria-hidden="true">
+      <!-- capsule, burgundy / blush -->
+      <div class="hero-pill" style="left:5%; top:14%;">
+        <svg width="46" height="24" viewBox="0 0 46 24"><g class="floaty" style="animation-duration:4.6s; animation-delay:0s;"><g transform="translate(23,12) rotate(-22)"><clipPath id="hp1"><rect x="-21" y="-10" width="42" height="20" rx="10"/></clipPath><g clip-path="url(#hp1)"><rect x="-21" y="-10" width="21" height="20" fill="#7A2438"/><rect x="0" y="-10" width="21" height="20" fill="#F0DCE1"/></g></g></g></svg>
+      </div>
+      <!-- scored tablet, navy -->
+      <div class="hero-pill" style="left:11%; top:70%;">
+        <svg width="34" height="34" viewBox="0 0 34 34"><g class="floaty" style="animation-duration:3.9s; animation-delay:1.1s;"><g transform="translate(17,17)"><circle r="15" fill="#12213F"/><line x1="-9" y1="0" x2="9" y2="0" stroke="#F3F2ED" stroke-width="1.5" opacity="0.55"/></g></g></svg>
+      </div>
+      <!-- small tablet, brass -->
+      <div class="hero-pill" style="left:32%; top:85%;">
+        <svg width="22" height="22" viewBox="0 0 22 22"><g class="floaty" style="animation-duration:4.9s; animation-delay:0.85s;"><circle cx="11" cy="11" r="9" fill="#A9834E"/></g></svg>
+      </div>
+      <!-- capsule, navy / silver -->
+      <div class="hero-pill" style="left:47%; top:8%;">
+        <svg width="42" height="22" viewBox="0 0 42 22"><g class="floaty" style="animation-duration:5.1s; animation-delay:0.2s;"><g transform="translate(21,11) rotate(16)"><clipPath id="hp2"><rect x="-19" y="-9" width="38" height="18" rx="9"/></clipPath><g clip-path="url(#hp2)"><rect x="-19" y="-9" width="19" height="18" fill="#12213F"/><rect x="0" y="-9" width="19" height="18" fill="#C9CFDC"/></g></g></g></svg>
+      </div>
+      <!-- small tablet, burgundy -->
+      <div class="hero-pill" style="left:60%; top:58%;">
+        <svg width="26" height="26" viewBox="0 0 26 26"><g class="floaty" style="animation-duration:4.2s; animation-delay:1.3s;"><circle cx="13" cy="13" r="11" fill="#7A2438"/></g></svg>
+      </div>
+      <!-- capsule, brass / cream -->
+      <div class="hero-pill" style="left:71%; top:20%;">
+        <svg width="40" height="20" viewBox="0 0 40 20"><g class="floaty" style="animation-duration:5.4s; animation-delay:0.6s;"><g transform="translate(20,10) rotate(-11)"><clipPath id="hp3"><rect x="-18" y="-8.5" width="36" height="17" rx="8.5"/></clipPath><g clip-path="url(#hp3)"><rect x="-18" y="-8.5" width="18" height="17" fill="#A9834E"/><rect x="0" y="-8.5" width="18" height="17" fill="#F8F7F3"/></g></g></g></svg>
+      </div>
+      <!-- capsule, navy / blush, vertical -->
+      <div class="hero-pill" style="left:81%; top:72%;">
+        <svg width="24" height="42" viewBox="0 0 24 42"><g class="floaty" style="animation-duration:5.7s; animation-delay:1.5s;"><g transform="translate(12,21) rotate(96)"><clipPath id="hp4"><rect x="-19" y="-9" width="38" height="18" rx="9"/></clipPath><g clip-path="url(#hp4)"><rect x="-19" y="-9" width="19" height="18" fill="#12213F"/><rect x="0" y="-9" width="19" height="18" fill="#F0DCE1"/></g></g></g></svg>
+      </div>
+      <!-- small tablet, navy -->
+      <div class="hero-pill" style="left:90%; top:32%;">
+        <svg width="24" height="24" viewBox="0 0 24 24"><g class="floaty" style="animation-duration:4.4s; animation-delay:0.3s;"><circle cx="12" cy="12" r="10" fill="#12213F"/></g></svg>
+      </div>
+      <!-- small tablet, brass -->
+      <div class="hero-pill" style="left:95%; top:62%;">
+        <svg width="22" height="22" viewBox="0 0 22 22"><g class="floaty" style="animation-duration:4.7s; animation-delay:1.0s;"><circle cx="11" cy="11" r="9" fill="#A9834E"/></g></svg>
+      </div>
+      <!-- small tablet, burgundy -->
+      <div class="hero-pill" style="left:22%; top:32%;">
+        <svg width="18" height="18" viewBox="0 0 18 18"><g class="floaty" style="animation-duration:4.0s; animation-delay:0.5s;"><circle cx="9" cy="9" r="7" fill="#7A2438" opacity="0.7"/></g></svg>
+      </div>
+    </div>
     <div class="container">
-      <div class="hero-grid">
-        <div class="hero-inner">
-          <div class="label">Now in Development</div>
-          <h1>
-            Every discount for your prescription.<br />
-            <em>All in one place.</em>
-          </h1>
-          <p class="hero-sub">
-            GoodRx, ScriptCycle, SingleCare, manufacturer copay cards, patient assistance programs. Savanti puts all of them on one screen for any drug, so you know what it should cost before you are standing at the register.
-          </p>
-          <div class="hero-actions">
-            <a href="#hub" class="btn btn-sky">See how prices compare</a>
-            <a href="#waitlist" class="btn btn-outline">Join the Waitlist</a>
-          </div>
-          <p class="hero-note"><span>Free for patients</span> · No insurance required · Built behind a pharmacy counter</p>
+      <div class="hero-inner">
+        <div class="label">Now in Development</div>
+        <h1>
+          Every discount for your prescription.<br />
+          <em>All in one place.</em>
+        </h1>
+        <p class="hero-sub">
+          GoodRx, ScriptCycle, SingleCare, manufacturer copay cards, patient assistance programs. Savanti puts all of them on one screen for any drug, so you know what it should cost before you are standing at the register.
+        </p>
+        <div class="hero-actions">
+          <a href="#hub" class="btn btn-sky">See how prices compare</a>
+          <a href="#waitlist" class="btn btn-outline">Join the Waitlist</a>
         </div>
-
-        <div class="hero-visual" aria-hidden="true">
-          <svg width="300" height="340" viewBox="0 0 300 340" fill="none">
-            <!-- capsule, navy / burgundy -->
-            <g transform="translate(74,92) rotate(-24)">
-              <g class="floaty" style="animation-duration:4.6s; animation-delay:0s;">
-                <clipPath id="cap1"><rect x="-23" y="-11" width="46" height="22" rx="11"/></clipPath>
-                <g clip-path="url(#cap1)">
-                  <rect x="-23" y="-11" width="23" height="22" fill="#7A2438"/>
-                  <rect x="0" y="-11" width="23" height="22" fill="#F0DCE1"/>
-                </g>
-              </g>
-            </g>
-
-            <!-- capsule, brass / cream -->
-            <g transform="translate(228,72) rotate(18)">
-              <g class="floaty" style="animation-duration:5.3s; animation-delay:0.5s;">
-                <clipPath id="cap2"><rect x="-20" y="-9.5" width="40" height="19" rx="9.5"/></clipPath>
-                <g clip-path="url(#cap2)">
-                  <rect x="-20" y="-9.5" width="20" height="19" fill="#A9834E"/>
-                  <rect x="0" y="-9.5" width="20" height="19" fill="#F8F7F3"/>
-                </g>
-              </g>
-            </g>
-
-            <!-- scored tablet, navy -->
-            <g transform="translate(52,190)">
-              <g class="floaty" style="animation-duration:3.9s; animation-delay:1.1s;">
-                <circle r="16" fill="#12213F"/>
-                <line x1="-10" y1="0" x2="10" y2="0" stroke="#F3F2ED" stroke-width="1.5" opacity="0.55"/>
-              </g>
-            </g>
-
-            <!-- small tablet, burgundy -->
-            <g transform="translate(254,166)">
-              <g class="floaty" style="animation-duration:4.3s; animation-delay:0.3s;">
-                <circle r="12" fill="#7A2438"/>
-              </g>
-            </g>
-
-            <!-- capsule, navy / silver -->
-            <g transform="translate(164,258) rotate(100)">
-              <g class="floaty" style="animation-duration:5.7s; animation-delay:1.5s;">
-                <clipPath id="cap3"><rect x="-22" y="-10" width="44" height="20" rx="10"/></clipPath>
-                <g clip-path="url(#cap3)">
-                  <rect x="-22" y="-10" width="22" height="20" fill="#12213F"/>
-                  <rect x="0" y="-10" width="22" height="20" fill="#C9CFDC"/>
-                </g>
-              </g>
-            </g>
-
-            <!-- small tablet, brass -->
-            <g transform="translate(108,300)">
-              <g class="floaty" style="animation-duration:4.9s; animation-delay:0.85s;">
-                <circle r="10" fill="#A9834E"/>
-              </g>
-            </g>
-          </svg>
-        </div>
+        <p class="hero-note"><span>Free for patients</span> · No insurance required · Built behind a pharmacy counter</p>
       </div>
     </div>
   </section>
