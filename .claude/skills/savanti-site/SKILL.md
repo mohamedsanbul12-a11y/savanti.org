@@ -11,6 +11,11 @@ apply the conventions below consistently across sessions, and default to
 just executing the full loop (edit → verify locally → commit → push →
 confirm live) without re-explaining the mechanics each time.
 
+Mohamed does not want to re-explain or reiterate himself. Treat everything
+in this file as settled, not up for re-confirmation. If he explicitly drops
+an open item (e.g. "forget the second Formspree endpoint"), stop tracking
+it and stop bringing it up — don't re-ask for it later.
+
 ## What this project is
 
 - A single static page: `~/savanti-site/index.html` is effectively the
@@ -159,9 +164,11 @@ waitlist form is now wired for real via Formspree — see
 success UI instead of Formspree's redirect, `_gotcha` honeypot field
 Formspree recognizes natively — no CAPTCHA, button disabled +
 "Sending..." while in flight, `role="alert"` error focused on failure).
-The partner form was still on the old fake handler as of 2026-08-02,
-pending Mohamed providing a second Formspree endpoint — check
-`FORMSPREE_PARTNER` in the script; if it's still `null`, wire the partner
-form the same way `handleWaitlist` works before assuming it's real.
+The partner form was still on the old fake handler as of 2026-08-02.
+Mohamed said to drop chasing a second Formspree endpoint for it — do
+**not** proactively ask him for it or flag it as an open item. Leave the
+partner form as-is unless he brings it up himself; if he does, wire it
+the same way `handleWaitlist` works (see `FORMSPREE_PARTNER` in the
+script, currently `null`).
 Test both the success and forced-failure paths (see verification section
-above) before treating a forms change as done.
+above) before treating any forms change as done.
