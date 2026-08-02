@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -34,7 +34,7 @@
       --text-muted:   var(--ink-soft);
       --text-dim:     var(--ink-dim);
 
-      --font-serif: 'Fraunces', Georgia, serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
       --font-sans:  'Inter', system-ui, sans-serif;
       --radius-sm: 8px;
       --radius-md: 14px;
@@ -102,12 +102,12 @@
       height: 68px;
     }
     .nav-logo {
-      display: inline-flex; align-items: center; gap: 10px;
+      display: inline-flex; align-items: baseline; gap: 1px;
       font-family: var(--font-serif);
-      font-size: 22px; font-weight: 600;
-      color: var(--ink); letter-spacing: -0.02em;
+      font-size: 23px; font-weight: 600;
+      color: var(--ink); letter-spacing: -0.01em;
     }
-    .nav-logo img { height: 26px; width: auto; display: block; }
+    .nav-logo em { font-style: italic; font-weight: 500; }
     .nav-logo span { color: var(--brass-hover); }
     .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
     .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-muted); transition: color 0.15s; }
@@ -174,17 +174,20 @@
     .ekg-strip {
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
-      background: var(--paper-alt);
-      overflow: hidden;
+      background:
+        var(--paper-alt)
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 280 64'><polyline points='0,32 60,32 80,32 92,10 104,54 116,32 140,32 280,32' fill='none' stroke='%237A2438' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+        repeat-x left center;
+      background-size: 280px 64px;
       height: 64px;
-      display: flex;
-      align-items: center;
+      animation: ekg-scroll 4.5s linear infinite;
     }
-    .ekg-track { display: flex; width: max-content; animation: ekg-scroll 9s linear infinite; }
-    .ekg-track svg { display: block; height: 64px; width: 600px; flex: none; }
-    @keyframes ekg-scroll { from { transform: translateX(0); } to { transform: translateX(-600px); } }
+    @keyframes ekg-scroll {
+      from { background-position-x: 0; }
+      to   { background-position-x: -280px; }
+    }
     @media (prefers-reduced-motion: reduce) {
-      .ekg-track { animation: none; }
+      .ekg-strip { animation: none; }
     }
 
     /* STATS STRIP */
@@ -355,8 +358,8 @@
     /* FOOTER */
     footer { background: var(--ink); border-top: 1px solid var(--line); padding: 40px 0; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-    .footer-logo { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-serif); font-size: 18px; font-weight: 400; color: var(--white); }
-    .footer-logo img { height: 18px; width: auto; filter: brightness(0) invert(1); }
+    .footer-logo { display: inline-flex; align-items: baseline; gap: 1px; font-family: var(--font-serif); font-size: 19px; font-weight: 600; color: var(--white); }
+    .footer-logo em { font-style: italic; font-weight: 500; }
     .footer-logo span { color: var(--brass-soft); }
     .footer-links { display: flex; gap: 24px; list-style: none; }
     .footer-links a { font-size: 13px; color: rgba(255,255,255,0.6); transition: color 0.15s; }
@@ -386,7 +389,7 @@
   <nav>
     <div class="container">
       <div class="nav-inner">
-        <a href="#" class="nav-logo"><img src="logo-s.svg" alt="" />avanti<span>.</span></a>
+        <a href="#" class="nav-logo"><em>S</em>avanti<span>.</span></a>
         <ul class="nav-links">
           <li><a href="#problem">The Problem</a></li>
           <li><a href="#hub">Prices</a></li>
@@ -457,16 +460,7 @@
   </section>
 
   <!-- EKG -->
-  <div class="ekg-strip" aria-hidden="true">
-    <div class="ekg-track">
-      <svg viewBox="0 0 600 64" preserveAspectRatio="none">
-        <polyline points="0,32 60,32 80,32 92,10 104,54 116,32 140,32 160,32 172,18 184,46 196,32 220,32 300,32 360,32 380,32 392,10 404,54 416,32 440,32 460,32 472,18 484,46 496,32 520,32 600,32" fill="none" stroke="#7A2438" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <svg viewBox="0 0 600 64" preserveAspectRatio="none">
-        <polyline points="0,32 60,32 80,32 92,10 104,54 116,32 140,32 160,32 172,18 184,46 196,32 220,32 300,32 360,32 380,32 392,10 404,54 416,32 440,32 460,32 472,18 484,46 496,32 520,32 600,32" fill="none" stroke="#7A2438" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-  </div>
+  <div class="ekg-strip" aria-hidden="true"></div>
 
   <!-- STATS -->
   <div class="stats-strip">
@@ -1022,7 +1016,7 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <div class="footer-logo"><img src="logo-s.svg" alt="" />avanti<span>.</span></div>
+        <div class="footer-logo"><em>S</em>avanti<span>.</span></div>
         <ul class="footer-links">
           <li><a href="tel:4045285461">(404) 528-5461</a></li>
           <li><a href="mailto:savantihealth@outlook.com">savantihealth@outlook.com</a></li>
