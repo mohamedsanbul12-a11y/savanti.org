@@ -1,0 +1,16 @@
+{
+  "routes": [
+    {
+      "route": "/.claude/*",
+      "statusCode": 404
+    },
+    {
+      "route": "/mohamed.jpg",
+      "statusCode": 404
+    },
+    {
+      "route": "/mohamed-portrait.jpg",
+      "statusCode": 404
+    }
+  ]
+}
