@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Savanti payment checker. Explore a browser-local prototype for pharmacy payment reconciliation with synthetic data.">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Payment workspace | Savanti</title>
+<link rel="stylesheet" href="style.css"><script defer src="engine.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to workspace</a>
+<aside class="sidebar">
+ <a class="brand" href="/">Savanti<span>.</span></a>
+ <div class="workspace-label">PHARMACY WORKSPACE</div>
+ <nav aria-label="Workspace"><a class="nav-item active" href="#overview"><span aria-hidden="true">▦</span> Reconciliation</a><button class="nav-item" id="nav-import"><span aria-hidden="true">⇧</span> Import files</button><button class="nav-item" id="nav-method"><span aria-hidden="true">≡</span> How it works</button></nav>
+ <div class="sidebar-bottom"><div class="mini-mark">S.</div><strong>Clarity in every payment.</strong><p>Know what matches.<br>Know what needs a look.</p><a href="mailto:savantihealth@outlook.com">Contact Savanti</a><span class="version">PRODUCT PREVIEW · V0.1</span></div>
+</aside>
+<div class="app-shell">
+<header class="topbar"><span>Workspace <span class="slash">/</span> <strong>Payments</strong></span><button class="privacy-button" id="privacy">◇ Browser-local session</button></header>
+<main id="main">
+ <div class="page-heading" id="overview"><div><p class="eyebrow">PAYMENT RECONCILIATION</p><h1>A clearer view of your payments.</h1><p class="subtitle">Compare expected amounts with recorded payments. Review the differences.</p></div><button class="primary" id="import-open">Import CSV files</button></div>
+ <div class="demo-banner"><div><span class="sample-pill" id="mode">SAMPLE DATA</span><span id="session-description">Explore a fictional pharmacy’s payment activity.</span></div><button id="reset" class="text-button">Reset sample</button></div>
+ <div class="report-controls"><label>Report as of <input type="date" id="as-of" value="2026-11-26" required></label><span id="source-caption">Synthetic November 2026 dataset</span></div>
+ <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+ <section class="metrics" aria-label="Payment summary">
+ <article><div class="metric-label">Expected payments</div><strong id="expected">$0.00</strong><span id="expect-count">From supplied expectations</span></article>
+ <article><div class="metric-label">Linked payments</div><strong id="paid">$0.00</strong><span>Net payments against known references</span></article>
+ <article class="metric-focus"><div class="metric-label">Open difference <span aria-hidden="true">↗</span></div><strong id="open">$0.00</strong><span>Positive balances requiring review</span></article>
+ <article><div class="metric-label">Needs review</div><strong id="review-count">0</strong><span id="review-caption">References with differences</span></article>
+ </section>
+ <div class="insight-grid">
+ <section class="panel aging"><div class="panel-title"><h2>Where balances stand</h2><span>Age from expected date</span></div><div id="aging-bars" class="aging-bars"></div><p class="footnote">Age is not an overdue determination. Payment terms are not evaluated.</p></section>
+ <section class="panel review-summary"><div class="panel-title"><h2>Your review queue</h2><span class="outline-tag">THIS SESSION</span></div><div id="queue"></div><p class="footnote">A difference is a prompt to investigate, not proof of an underpayment.</p></section>
+ </div>
+ <section class="panel transactions" aria-labelledby="table-title">
+ <div class="table-heading"><div><h2 id="table-title">Payment activity</h2><p id="table-caption">All references in this session</p></div><button class="secondary" id="export">Download report</button></div>
+ <div class="table-toolbar"><div class="tabs" role="group" aria-label="Filter payment activity"><button class="selected" data-filter="all" aria-pressed="true">All activity</button><button data-filter="review" aria-pressed="false">Needs review</button><button data-filter="matched" aria-pressed="false">Matched</button></div><label class="search"><span class="sr-only">Search reference or drug</span><input id="search" type="search" placeholder="Search reference or drug"></label></div>
+ <div class="table-scroll" tabindex="0" aria-label="Payment activity table"><table><thead><tr><th scope="col">Reference / drug</th><th scope="col">Expected date</th><th scope="col" class="number">Expected</th><th scope="col" class="number">Paid</th><th scope="col" class="number">Difference</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Details</span></th></tr></thead><tbody id="rows"></tbody></table></div>
+ <div class="table-footer"><span id="row-count"></span><span>USD · Exact reference matching · No tolerance applied</span></div>
+ </section>
+ <footer class="workspace-footer"><span>Savanti payment checker <span class="footer-dot">·</span> Prototype</span><span>No payer connections. No automatic refund calculation.</span></footer>
+</main></div>
+<dialog id="import-dialog" aria-labelledby="import-title"><form id="import-form"><div class="dialog-head"><div><p class="eyebrow">START A RECONCILIATION</p><h2 id="import-title">Bring your files together.</h2></div><button type="button" class="close" data-close aria-label="Close import">×</button></div><p>Use the two Savanti CSV templates below. Direct pharmacy-system exports and 835 files are not supported yet.</p><div class="import-safety"><strong>Use synthetic or appropriately de-identified data only.</strong> Do not include patient names, birth dates, prescription numbers, or other patient identifiers. Use artificial reference IDs. Files stay in this browser tab and are cleared on reload.</div><div class="file-card"><div><strong>1. Expected amounts</strong><button type="button" class="text-button" id="claims-template">Download template</button></div><p>One row per reference. Supply your own expected payment amount.</p><label for="claims-file">Select expectations CSV</label><input id="claims-file" type="file" accept=".csv,text/csv" required><code>reference, date, expected_amount, drug</code></div><div class="file-card"><div><strong>2. Recorded payments</strong><button type="button" class="text-button" id="payments-template">Download template</button></div><p>One row per payment. Multiple payments may share a reference.</p><label for="payments-file">Select payments CSV</label><input id="payments-file" type="file" accept=".csv,text/csv" required><code>payment_id, reference, date, paid_amount</code></div><label class="confirm"><input id="safe-confirm" type="checkbox" required> These files contain only synthetic or appropriately de-identified data.</label><p id="import-error" class="error" role="alert" hidden></p><div class="dialog-actions"><span>CSV only · 2 MB / file · 10,000 rows / file</span><button class="primary" type="submit" id="run-import">Reconcile files</button></div></form></dialog>
+<dialog id="detail-dialog" aria-labelledby="detail-title"><div class="dialog-head"><div><p class="eyebrow">REFERENCE DETAILS</p><h2 id="detail-title"></h2></div><button class="close" data-close aria-label="Close details">×</button></div><div id="detail-content"></div></dialog>
+<dialog id="method-dialog" aria-labelledby="method-title"><div class="dialog-head"><h2 id="method-title">Transparent by design.</h2><button class="close" data-close aria-label="Close explanation">×</button></div><div class="method-copy"><h3>What this prototype does</h3><p>Matches your supplied expectations and payments by an exact, case-sensitive reference. Amounts are calculated in integer cents. Multiple payments are added together; negative payments reduce the total.</p><h3>What the numbers mean</h3><p>Difference = expected amount minus net linked payments. Open difference sums positive balances only. Overpayments and unlinked payments are shown separately; they do not offset open differences.</p><p>Zero expectations are treated as reversed. A zero expectation with a nonzero net payment needs reversal review. Payment dates after the report date are rejected. Aging starts at the expected row’s date, not a contractual due date.</p><h3>What it does not establish</h3><p>No MFP eligibility calculation, manufacturer payment verification, payer connection, contract interpretation, or claim recovery. A matched amount confirms arithmetic, not correctness of the expectation or receipt of bank funds.</p><h3>Privacy and session storage</h3><p>Files are processed in this tab’s memory. This workspace has no analytics, file uploads, external fonts, or browser storage. Reloading clears imported records. Downloaded reports remain on your device. Standard site hosting can still record page requests.</p><p>This prototype is for synthetic or appropriately de-identified data. It has not been assessed for production handling of patient information.</p></div></dialog>
+</body></html>
